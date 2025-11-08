@@ -1,0 +1,5240 @@
+{
+  "locations": [
+    "Losa Deportiva \"La Bombonera\"",
+    "Losa Deportiva \"Santa Rosa\"",
+    "Losa Deportiva \"Atalaya\"",
+    "Losa Deportiva \"Sr. De La Justicia\""
+  ],
+  "currentLocationIndex": 3,
+  "data": {
+    "Losa Deportiva \"Santa Rosa\"": {
+      "employees": [
+        {
+          "name": "VILLACREZ VALLES GENNER",
+          "dni": "10622894",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "0001-01-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-01",
+              "active": false
+            },
+            {
+              "date": "2025-09-08",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "RIOS SALAS JUAN MOISES",
+          "dni": "74255652",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "0001-01-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-01",
+              "active": false
+            },
+            {
+              "date": "2025-09-08",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "RIOS SALAS MANUEL LUIS",
+          "dni": "74255653",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "0001-01-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-01",
+              "active": false
+            },
+            {
+              "date": "2025-09-08",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "ZOQQIODICE MUJICA ANDRÉS",
+          "dni": "00628789",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "0001-01-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-01",
+              "active": false
+            },
+            {
+              "date": "2025-09-08",
+              "active": true
+            },
+            {
+              "date": "2025-09-29",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "VELASQUEZ CORDOVA EVER ANDRES",
+          "dni": "77103876",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "0001-01-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-01",
+              "active": false
+            },
+            {
+              "date": "2025-09-08",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "ZAVALA ZAVALA ELQUI CARMELO",
+          "dni": "19688039",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "0001-01-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-01",
+              "active": false
+            },
+            {
+              "date": "2025-09-08",
+              "active": true
+            },
+            {
+              "date": "2025-09-09",
+              "active": true
+            },
+            {
+              "date": "2025-09-15",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "PERICHE OLAYA FERNANDO JAVIER",
+          "dni": "42546578",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-30",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "FRANCISCO DANIEL ZAPATA H.",
+          "dni": "006821798",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-10-06",
+              "active": true
+            },
+            {
+              "date": "2025-10-13",
+              "active": false
+            }
+          ]
+        }
+      ],
+      "attendance": {
+        "2025-09-09": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZAVALA ZAVALA ELQUI CARMELO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-08": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-10": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-11": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZAVALA ZAVALA ELQUI CARMELO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-12": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZAVALA ZAVALA ELQUI CARMELO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-15": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-16": [
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-17": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-18": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-19": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-20": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          }
+        ],
+        "2025-09-22": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-23": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-24": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-25": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-26": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-29": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-30": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PERICHE OLAYA FERNANDO JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-01": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PERICHE OLAYA FERNANDO JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-02": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PERICHE OLAYA FERNANDO JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-27": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-03": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PERICHE OLAYA FERNANDO JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-04": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "14:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "14:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "14:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "14:00"
+          },
+          {
+            "name": "PERICHE OLAYA FERNANDO JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "14:00"
+          }
+        ],
+        "2025-10-06": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PERICHE OLAYA FERNANDO JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-07": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-08": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PERICHE OLAYA FERNANDO JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-09": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PERICHE OLAYA FERNANDO JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-10": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PERICHE OLAYA FERNANDO JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-11": [
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "RIOS SALAS JUAN MOISES",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "RIOS SALAS MANUEL LUIS",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "PERICHE OLAYA FERNANDO JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          }
+        ]
+      },
+      "weeklyHoursConfig": {
+        "0": 0,
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 9,
+        "5": 9,
+        "6": 5
+      },
+      "dailyTopics": {
+        "2025-09-01": "Uso correcto de los EPP (Equipos de Protección Personal)",
+        "2025-09-02": "Orden y limpieza en el área de trabajo (5S)",
+        "2025-09-03": "Identificación de peligros y reporte de actos y condiciones inseguras",
+        "2025-09-04": "Ergonomía y pausas activas en oficina y campo",
+        "2025-09-05": "Manejo adecuado de residuos sólidos",
+        "2025-09-06": "Reglas de tránsito interno y manejo defensivo",
+        "2025-09-08": {
+          "topic": "Prevención de caídas a distinto y mismo nivel",
+          "duration": 10
+        },
+        "2025-09-09": {
+          "topic": "Uso seguro de herramientas manuales y eléctricas",
+          "duration": 5
+        },
+        "2025-09-10": {
+          "topic": "Señalización y colores de seguridad (NTP 399.010)",
+          "duration": 10
+        },
+        "2025-09-11": {
+          "topic": "Control de sustancias químicas y fichas de seguridad (MSDS)",
+          "duration": 10
+        },
+        "2025-09-12": {
+          "topic": "Seguridad en trabajos en altura",
+          "duration": 10
+        },
+        "2025-09-13": {
+          "topic": "Prevención del estrés laboral",
+          "duration": 5
+        },
+        "2025-09-15": {
+          "topic": "Plan de emergencias y brigadas de respuesta",
+          "duration": 10
+        },
+        "2025-09-16": {
+          "topic": "Seguridad eléctrica",
+          "duration": 10
+        },
+        "2025-09-17": {
+          "topic": "Medio ambiente: consumo responsable de agua y energía",
+          "duration": 5
+        },
+        "2025-09-18": {
+          "topic": "Procedimiento de bloqueo y etiquetado (LOTO)",
+          "duration": 10
+        },
+        "2025-09-19": {
+          "topic": "Salud ocupacional: prevención de enfermedades respiratorias",
+          "duration": 10
+        },
+        "2025-09-20": {
+          "topic": "Uso seguro de extintores",
+          "duration": 10
+        },
+        "2025-09-22": {
+          "topic": "Comunicación y cultura de seguridad",
+          "duration": 10
+        },
+        "2025-09-23": {
+          "topic": "Riesgos ergonómicos en el trabajo administrativo",
+          "duration": 10
+        },
+        "2025-09-24": {
+          "topic": "Reporte de incidentes y accidentes (Ley 29783)",
+          "duration": 10
+        },
+        "2025-09-25": {
+          "topic": "Manejo de materiales peligrosos",
+          "duration": 10
+        },
+        "2025-09-26": {
+          "topic": "Prevención de incendios",
+          "duration": 10
+        },
+        "2025-09-27": {
+          "topic": "Responsabilidad ambiental: las 3R (Reducir, Reutilizar, Reciclar)",
+          "duration": 10
+        },
+        "2025-09-29": {
+          "topic": "Riesgos psicosociales en el trabajo",
+          "duration": 10
+        },
+        "2025-09-30": {
+          "topic": "Cultura de autocuidado y liderazgo en seguridad",
+          "duration": 10
+        },
+        "2025-10-02": {
+          "topic": "Procedimiento seguro para izaje de cargas.",
+          "duration": 10
+        },
+        "2025-10-01": {
+          "topic": "Hidratación y cuidado en ambientes calurosos.",
+          "duration": 10
+        },
+        "2025-10-03": {
+          "topic": "Seguridad en espacios confinados.",
+          "duration": 10
+        },
+        "2025-10-04": {
+          "topic": "Manejo y almacenamiento de cilindros de gas.",
+          "duration": 10
+        },
+        "2025-10-06": {
+          "topic": "Uso seguro de escaleras portátiles.",
+          "duration": 10
+        },
+        "2025-10-07": {
+          "topic": "Higiene ocupacional: control de ruido.",
+          "duration": 10
+        },
+        "2025-10-08": {
+          "topic": "Prevención de lesiones musculoesqueléticas.",
+          "duration": 10
+        },
+        "2025-10-09": {
+          "topic": "Transporte seguro de materiales peligrosos.",
+          "duration": 10
+        },
+        "2025-10-10": {
+          "topic": "Limpieza y desinfección de áreas comunes.",
+          "duration": 10
+        },
+        "2025-10-11": {
+          "topic": "Primeros auxilios básicos.",
+          "duration": 10
+        },
+        "2025-10-13": {
+          "topic": "Salud mental y equilibrio trabajo–vida personal.",
+          "duration": null
+        },
+        "2025-10-14": {
+          "topic": "Control de polvo y emisiones en obra.",
+          "duration": null
+        },
+        "2025-10-15": {
+          "topic": "Seguridad en el uso de grúas y montacargas.",
+          "duration": null
+        },
+        "2025-10-16": {
+          "topic": "Programa de reciclaje y manejo de residuos peligrosos.",
+          "duration": null
+        },
+        "2025-10-17": {
+          "topic": "Procedimientos seguros en trabajos con soldadura y corte.",
+          "duration": null
+        },
+        "2025-10-18": {
+          "topic": "Uso correcto de arnés y líneas de vida.",
+          "duration": null
+        },
+        "2025-10-20": {
+          "topic": "Cuidado de la piel: exposición al sol y sustancias químicas.",
+          "duration": null
+        },
+        "2025-10-21": {
+          "topic": "Inspecciones planeadas de seguridad.",
+          "duration": null
+        },
+        "2025-10-22": {
+          "topic": "Cultura preventiva y trabajo en equipo.",
+          "duration": null
+        },
+        "2025-10-23": {
+          "topic": "Bioseguridad en comedor y áreas comunes.",
+          "duration": null
+        },
+        "2025-10-24": {
+          "topic": "Señales de advertencia de fatiga en el trabajo.",
+          "duration": null
+        },
+        "2025-10-25": {
+          "topic": "Procedimientos de evacuación en emergencias.",
+          "duration": null
+        },
+        "2025-10-27": {
+          "topic": "Riesgos en el uso de maquinaria pesada.",
+          "duration": null
+        },
+        "2025-10-28": {
+          "topic": "Seguridad vial fuera y dentro de la empresa.",
+          "duration": null
+        },
+        "2025-10-29": {
+          "topic": "Monitoreo ambiental en el centro de trabajo.",
+          "duration": null
+        },
+        "2025-10-30": {
+          "topic": "Preparación para auditorías internas de SSOMA.",
+          "duration": null
+        },
+        "2025-10-31": {
+          "topic": "Balance mensual: aprendizajes en seguridad y próximos retos.",
+          "duration": null
+        },
+        "2025-10-05": {
+          "topic": "",
+          "duration": 10
+        }
+      },
+      "dailyNotes": {
+        "2025-09-10": {
+          "ZAVALA ZAVALA ELQUI CARMELO": "Se retiró por urgencia familiar"
+        }
+      },
+      "weeklyNotes": {
+        "2025-W38": "Alta de personal: MORALES DECENA JUAN (DNI 32770713, Operario) desde 16/09/2025 | Alta de personal: BERROCAL ZAVALA PEDRO MIGUEL (DNI 48148517, Operario) desde 16/09/2025"
+      },
+      "_autoWeeklyNotes": {},
+      "weeklyNotesLog": {
+        "2025-W38": [
+          {
+            "date": "2025-09-15",
+            "event": "Baja",
+            "name": "ZAVALA ZAVALA ELQUI CARMELO",
+            "dni": "19688039",
+            "position": "Ayudante"
+          }
+        ],
+        "2025-W40": [
+          {
+            "date": "2025-09-30",
+            "event": "Nuevo personal",
+            "name": "PERICHE OLAYA FERNANDO JAVIER",
+            "dni": "42546578",
+            "position": "Operario"
+          },
+          {
+            "date": "2025-09-29",
+            "event": "Baja",
+            "name": "ZOQQIODICE MUJICA ANDRÉS",
+            "dni": "00628789",
+            "position": "Ayudante"
+          }
+        ],
+        "2025-W41": [
+          {
+            "date": "2025-10-06",
+            "event": "Nuevo personal",
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "dni": "006821798",
+            "position": "Operario"
+          }
+        ],
+        "2025-W42": [
+          {
+            "date": "2025-10-13",
+            "event": "Baja",
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "dni": "006821798",
+            "position": "Operario"
+          }
+        ]
+      }
+    },
+    "Losa Deportiva \"La Bombonera\"": {
+      "employees": [
+        {
+          "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+          "dni": "46100082",
+          "position": "Soldador",
+          "statusEvents": [
+            {
+              "date": "2025-09-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-06",
+              "active": true
+            },
+            {
+              "date": "2025-09-08",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "PACHERREZ MANIHUARI ANTONY",
+          "dni": "45559985",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "2025-09-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-15",
+              "active": false
+            },
+            {
+              "date": "2025-09-16",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "PALOMINO VARGAS MARCO ANTONIO",
+          "dni": "40491802",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-15",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+          "dni": "48148517",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-15",
+              "active": false
+            },
+            {
+              "date": "2025-09-16",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "SILVA POMAHUACRE DANIEL MAURICIO",
+          "dni": "77204539",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-08",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "CALDERON JUAREZ JOSE FERNANDO",
+          "dni": "42068415",
+          "position": "Soldador",
+          "statusEvents": [
+            {
+              "date": "2025-09-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-15",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "VILLACREZ VALLES GENNER",
+          "dni": "10622894",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-08",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "LAVI AHUANARI NICANOR",
+          "dni": "80655713",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-15",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "LUNA YAUYO VIERI ANDRE",
+          "dni": "77181868",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "2025-09-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-08",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "CHERO FLORES JEFRIS",
+          "dni": "46078870",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "2025-09-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-15",
+              "active": false
+            },
+            {
+              "date": "2025-09-16",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "MORALES DECENA JUAN",
+          "dni": "32770713",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-15",
+              "active": false
+            },
+            {
+              "date": "2025-09-16",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "ZEA SUAREZ FELIPE",
+          "dni": "40897824",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-15",
+              "active": false
+            },
+            {
+              "date": "2025-09-16",
+              "active": false
+            },
+            {
+              "date": "2025-09-17",
+              "active": false
+            },
+            {
+              "date": "2025-09-19",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "MORALES NIMA SEGUNDO ANDRES",
+          "dni": "17609319",
+          "position": "Soldador",
+          "statusEvents": [
+            {
+              "date": "2025-09-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-15",
+              "active": false
+            },
+            {
+              "date": "2025-09-16",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "GOMEZ NOLE JULIO CESAR",
+          "dni": "80681515",
+          "position": "Soldador",
+          "statusEvents": [
+            {
+              "date": "2025-09-01",
+              "active": true
+            },
+            {
+              "date": "2025-09-02",
+              "active": true
+            },
+            {
+              "date": "2025-09-06",
+              "active": true
+            },
+            {
+              "date": "2025-09-15",
+              "active": false
+            },
+            {
+              "date": "2025-09-16",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "FRANCISCO DANIEL ZAPATA H.",
+          "dni": "006821798",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-08",
+              "active": false
+            },
+            {
+              "date": "2025-09-09",
+              "active": true
+            },
+            {
+              "date": "2025-09-10",
+              "active": false
+            },
+            {
+              "date": "2025-09-12",
+              "active": true
+            },
+            {
+              "date": "2025-09-15",
+              "active": false
+            },
+            {
+              "date": "2025-09-16",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "ALEJANDRO MATOS JUNIOR JAVIER",
+          "dni": "48626725",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-08",
+              "active": false
+            },
+            {
+              "date": "2025-09-09",
+              "active": true
+            },
+            {
+              "date": "2025-09-15",
+              "active": false
+            },
+            {
+              "date": "2025-09-16",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "QUISPE ECHACCAYA GLICERIO",
+          "dni": "25784909",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": false
+            },
+            {
+              "date": "2025-09-16",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "RAMIREZ RIVERA JAVIER",
+          "dni": "72260513",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": false
+            },
+            {
+              "date": "2025-09-16",
+              "active": false
+            },
+            {
+              "date": "2025-09-17",
+              "active": false
+            },
+            {
+              "date": "2025-09-19",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "HINOJOSA GAVIDIA JAEN CARLO",
+          "dni": "44686606",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": false
+            },
+            {
+              "date": "2025-09-16",
+              "active": false
+            }
+          ]
+        }
+      ],
+      "attendance": {
+        "2025-09-02": [
+          {
+            "name": "SILVA POMAHUACRE DANIEL MAURICIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LUNA YAUYO VIERI ANDRE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-01": [
+          {
+            "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "SILVA POMAHUACRE DANIEL MAURICIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LUNA YAUYO VIERI ANDRE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-03": [
+          {
+            "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "SILVA POMAHUACRE DANIEL MAURICIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LUNA YAUYO VIERI ANDRE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-04": [
+          {
+            "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "SILVA POMAHUACRE DANIEL MAURICIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LUNA YAUYO VIERI ANDRE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-05": [
+          {
+            "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "SILVA POMAHUACRE DANIEL MAURICIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LUNA YAUYO VIERI ANDRE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-06": [
+          {
+            "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "SILVA POMAHUACRE DANIEL MAURICIO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "VILLACREZ VALLES GENNER",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "LUNA YAUYO VIERI ANDRE",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          }
+        ],
+        "2025-09-08": [
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-09": [
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ALEJANDRO MATOS JUNIOR JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-10": [
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00",
+            "observation": "-"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00",
+            "observation": "-"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00",
+            "observation": "-"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00",
+            "observation": "-"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00",
+            "observation": "-"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00",
+            "observation": "-"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00",
+            "observation": "-"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00",
+            "observation": "-"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "12:00",
+            "observation": "Se retiró por urgencia familiar."
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00",
+            "observation": "-"
+          },
+          {
+            "name": "ALEJANDRO MATOS JUNIOR JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00",
+            "observation": "-"
+          }
+        ],
+        "2025-09-11": [
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ALEJANDRO MATOS JUNIOR JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-12": [
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ALEJANDRO MATOS JUNIOR JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-15": [],
+        "2025-09-16": [],
+        "2025-09-17": [],
+        "2025-09-13": [
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "ALEJANDRO MATOS JUNIOR JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          }
+        ]
+      },
+      "weeklyHoursConfig": {
+        "0": 0,
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 9,
+        "5": 9,
+        "6": 5
+      },
+      "dailyTopics": {
+        "2025-09-10": {
+          "topic": "Señalización y colores de seguridad (NTP 399.010).",
+          "duration": 10
+        },
+        "2025-09-01": {
+          "topic": "Uso correcto de los EPP (Equipos de Protección Personal).",
+          "duration": 5
+        },
+        "2025-09-02": {
+          "topic": "Orden y limpieza en el área de trabajo (5S).",
+          "duration": 10
+        },
+        "2025-09-03": {
+          "topic": "Identificación de peligros y reporte de actos y condiciones inseguras.",
+          "duration": 10
+        },
+        "2025-09-04": {
+          "topic": "Ergonomía y pausas activas en oficina y campo.",
+          "duration": 7
+        },
+        "2025-09-05": {
+          "topic": "Manejo adecuado de residuos sólidos.",
+          "duration": 10
+        },
+        "2025-09-06": {
+          "topic": "Reglas de tránsito interno y manejo defensivo.",
+          "duration": 12
+        },
+        "2025-09-08": {
+          "topic": "Prevención de caídas a distinto y mismo nivel.",
+          "duration": 7
+        },
+        "2025-09-09": {
+          "topic": "Uso seguro de herramientas manuales y eléctricas.",
+          "duration": 10
+        },
+        "2025-09-11": {
+          "topic": "Control de sustancias químicas y fichas de seguridad (MSDS).",
+          "duration": 10
+        },
+        "2025-09-12": {
+          "topic": "Seguridad en trabajos en altura.",
+          "duration": 10
+        },
+        "2025-09-13": {
+          "topic": "Prevención del estrés laboral.",
+          "duration": 10
+        },
+        "2025-09-15": {
+          "topic": "Plan de emergencias y brigadas de respuesta",
+          "duration": 10
+        },
+        "2025-09-16": {
+          "topic": "Seguridad eléctrica",
+          "duration": 10
+        },
+        "2025-09-17": {
+          "topic": "Medio ambiente: consumo responsable de agua y energía",
+          "duration": 5
+        },
+        "2025-09-18": "Procedimiento de bloqueo y etiquetado (LOTO)",
+        "2025-09-19": "Salud ocupacional: prevención de enfermedades respiratorias",
+        "2025-09-20": "Uso seguro de extintores",
+        "2025-09-22": "Comunicación y cultura de seguridad",
+        "2025-09-23": "Riesgos ergonómicos en el trabajo administrativo",
+        "2025-09-24": "Reporte de incidentes y accidentes (Ley 29783)",
+        "2025-09-25": "Manejo de materiales peligrosos",
+        "2025-09-26": {
+          "topic": "Prevención de incendios",
+          "duration": null
+        },
+        "2025-09-27": "Responsabilidad ambiental: las 3R (Reducir, Reutilizar, Reciclar)",
+        "2025-09-29": "Riesgos psicosociales en el trabajo",
+        "2025-09-30": {
+          "topic": "Cultura de autocuidado y liderazgo en seguridad",
+          "duration": null
+        }
+      },
+      "dayTopics": {
+        "2025-09-10": "Uso correcto de los EPP (Equipos de Protección Personal)."
+      },
+      "dailyNotes": {},
+      "weeklyNotes": {
+        "2025-W38": "ninguna"
+      },
+      "_autoWeeklyNotes": {},
+      "weeklyNotesLog": {
+        "2025-W38": [
+          {
+            "date": "2025-09-15",
+            "event": "Nuevo ingreso",
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "dni": "25784909",
+            "position": "Maestro"
+          },
+          {
+            "date": "2025-09-15",
+            "event": "Nuevo ingreso",
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "dni": "44686606",
+            "position": "Ayudante"
+          },
+          {
+            "date": "2025-09-15",
+            "event": "Nuevo ingreso",
+            "name": "RAMIREZ RIVERA JAVIER",
+            "dni": "72260513",
+            "position": "Operario"
+          }
+        ]
+      }
+    },
+    "Losa Deportiva \"Atalaya\"": {
+      "employees": [
+        {
+          "name": "PACHERREZ MANIHUARI ANTONY",
+          "dni": "45559985",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": true
+            },
+            {
+              "date": "2025-09-16",
+              "active": true
+            },
+            {
+              "date": "2025-09-20",
+              "active": false
+            },
+            {
+              "date": "2025-10-06",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "QUISPE ECHACCAYA GLICERIO",
+          "dni": "25784909",
+          "position": "Maestro",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": true
+            },
+            {
+              "date": "2025-09-16",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "CHERO FLORES JEFRIS",
+          "dni": "46078870",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": true
+            },
+            {
+              "date": "2025-09-16",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "ZEA SUAREZ FELIPE",
+          "dni": "40897824",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": true
+            },
+            {
+              "date": "2025-09-16",
+              "active": true
+            },
+            {
+              "date": "2025-09-17",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "PALOMINO VARGAS MARCO ANTONIO",
+          "dni": "40491802",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+          "dni": "48148517",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "CALDERON JUAREZ JOSE FERNANDO",
+          "dni": "42068415",
+          "position": "Soldador",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "LAVI AHUANARI NICANOR",
+          "dni": "80655713",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "MORALES DECENA JUAN",
+          "dni": "32770713",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "MORALES NIMA SEGUNDO ANDRES",
+          "dni": "17609319",
+          "position": "Soldador",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "GOMEZ NOLE JULIO CESAR",
+          "dni": "80681515",
+          "position": "Soldador",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "FRANCISCO DANIEL ZAPATA H.",
+          "dni": "006821798",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": true
+            },
+            {
+              "date": "2025-09-18",
+              "active": false
+            },
+            {
+              "date": "2025-09-20",
+              "active": true
+            },
+            {
+              "date": "2025-09-22",
+              "active": false
+            },
+            {
+              "date": "2025-10-13",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "ALEJANDRO MATOS JUNIOR JAVIER",
+          "dni": "48626725",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": true
+            },
+            {
+              "date": "2025-09-22",
+              "active": false
+            }
+          ]
+        },
+        {
+          "name": "RAMIREZ RIVERA JAVIER",
+          "dni": "72260513",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "HINOJOSA GAVIDIA JAEN CARLO",
+          "dni": "44686606",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "2025-09-15",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+          "dni": "48643425",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "2025-09-16",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "RIVERA CORDOVA JOSE MIGUEL",
+          "dni": "46834251",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "2025-09-22",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+          "dni": "46100082",
+          "position": "Soldador",
+          "statusEvents": [
+            {
+              "date": "2025-09-29",
+              "active": true
+            },
+            {
+              "date": "2025-10-06",
+              "active": false
+            }
+          ]
+        }
+      ],
+      "attendance": {
+        "2025-09-16": [
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ALEJANDRO MATOS JUNIOR JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-17": [
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ALEJANDRO MATOS JUNIOR JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-15": [
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ALEJANDRO MATOS JUNIOR JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-18": [
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ALEJANDRO MATOS JUNIOR JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-19": [
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ALEJANDRO MATOS JUNIOR JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-20": [
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "ALEJANDRO MATOS JUNIOR JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          }
+        ],
+        "2025-09-22": [
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-23": [
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-24": [
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-25": [
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-26": [
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-29": [
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-27": [
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-09-30": [
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-01": [
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-02": [
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-03": [
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-04": [
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          }
+        ],
+        "2025-10-06": [
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-07": [
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-08": [
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-09": [
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-10": [
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-11": [
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "13:00"
+          }
+        ],
+        "2025-10-13": [
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-14": [
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-15": [
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ],
+        "2025-10-16": [
+          {
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "QUISPE ECHACCAYA GLICERIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CHERO FLORES JEFRIS",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "ZEA SUAREZ FELIPE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "PALOMINO VARGAS MARCO ANTONIO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "BERROCAL ZAVALA PEDRO MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "CALDERON JUAREZ JOSE FERNANDO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "LAVI AHUANARI NICANOR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES DECENA JUAN",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MORALES NIMA SEGUNDO ANDRES",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "GOMEZ NOLE JULIO CESAR",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RAMIREZ RIVERA JAVIER",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          },
+          {
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "checkIn": "08:00",
+            "checkOut": "18:00"
+          }
+        ]
+      },
+      "weeklyHoursConfig": {
+        "0": 0,
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 9,
+        "5": 9,
+        "6": 5
+      },
+      "dailyTopics": {
+        "2025-09-16": {
+          "topic": "",
+          "duration": 5
+        },
+        "2025-09-17": {
+          "topic": "Medio ambiente: consumo responsable de agua y energía",
+          "duration": 10
+        },
+        "2025-09-15": {
+          "topic": "",
+          "duration": 10
+        },
+        "2025-09-18": {
+          "topic": "",
+          "duration": 10
+        },
+        "2025-09-19": {
+          "topic": "Salud ocupacional: prevención de enfermedades respiratorias",
+          "duration": 10
+        },
+        "2025-09-20": {
+          "topic": "Uso seguro de extintores",
+          "duration": 10
+        },
+        "2025-09-22": {
+          "topic": "Comunicación y cultura de seguridad",
+          "duration": 10
+        },
+        "2025-09-23": {
+          "topic": "Riesgos ergonómicos en el trabajo administrativo",
+          "duration": 10
+        },
+        "2025-09-24": {
+          "topic": "Reporte de incidentes y accidentes (Ley 29783)",
+          "duration": 10
+        },
+        "2025-09-25": {
+          "topic": "Manejo de materiales peligrosos",
+          "duration": 10
+        },
+        "2025-09-26": {
+          "topic": "Prevención de incendios",
+          "duration": 10
+        },
+        "2025-09-27": {
+          "topic": "Responsabilidad ambiental: las 3R (Reducir, Reutilizar, Reciclar)",
+          "duration": 10
+        },
+        "2025-09-29": {
+          "topic": "Riesgos psicosociales en el trabajo",
+          "duration": 10
+        },
+        "2025-09-30": {
+          "topic": "Cultura de autocuidado y liderazgo en seguridad",
+          "duration": 10
+        },
+        "2025-10-01": {
+          "topic": "Hidratación y cuidado en ambientes calurosos.",
+          "duration": 10
+        },
+        "2025-10-02": {
+          "topic": "Procedimiento seguro para izaje de cargas.",
+          "duration": null
+        },
+        "2025-10-03": {
+          "topic": "Seguridad en espacios confinados.",
+          "duration": 10
+        },
+        "2025-10-04": {
+          "topic": "Manejo y almacenamiento de cilindros de gas.",
+          "duration": 10
+        },
+        "2025-10-06": {
+          "topic": "Uso seguro de escaleras portátiles.",
+          "duration": 10
+        },
+        "2025-10-07": {
+          "topic": "Higiene ocupacional: control de ruido.",
+          "duration": 10
+        },
+        "2025-10-08": {
+          "topic": "Prevención de lesiones musculoesqueléticas.",
+          "duration": 10
+        },
+        "2025-10-09": {
+          "topic": "Transporte seguro de materiales peligrosos.",
+          "duration": 10
+        },
+        "2025-10-10": {
+          "topic": "Limpieza y desinfección de áreas comunes.",
+          "duration": 10
+        },
+        "2025-10-11": {
+          "topic": "Primeros auxilios básicos.",
+          "duration": 10
+        },
+        "2025-10-13": {
+          "topic": "Salud mental y equilibrio trabajo–vida personal.",
+          "duration": 10
+        },
+        "2025-10-14": {
+          "topic": "Control de polvo y emisiones en obra.",
+          "duration": 10
+        },
+        "2025-10-15": {
+          "topic": "Seguridad en el uso de grúas y montacargas.",
+          "duration": null
+        },
+        "2025-10-16": {
+          "topic": "Programa de reciclaje y manejo de residuos peligrosos.",
+          "duration": 10
+        },
+        "2025-10-17": {
+          "topic": "Procedimientos seguros en trabajos con soldadura y corte.",
+          "duration": null
+        },
+        "2025-10-18": {
+          "topic": "Uso correcto de arnés y líneas de vida.",
+          "duration": null
+        },
+        "2025-10-20": {
+          "topic": "Cuidado de la piel: exposición al sol y sustancias químicas.",
+          "duration": null
+        },
+        "2025-10-21": {
+          "topic": "Inspecciones planeadas de seguridad.",
+          "duration": null
+        },
+        "2025-10-22": {
+          "topic": "Cultura preventiva y trabajo en equipo.",
+          "duration": null
+        },
+        "2025-10-23": {
+          "topic": "Bioseguridad en comedor y áreas comunes.",
+          "duration": null
+        },
+        "2025-10-24": {
+          "topic": "Señales de advertencia de fatiga en el trabajo.",
+          "duration": null
+        },
+        "2025-10-25": {
+          "topic": "Procedimientos de evacuación en emergencias.",
+          "duration": null
+        },
+        "2025-10-27": {
+          "topic": "Riesgos en el uso de maquinaria pesada.",
+          "duration": null
+        },
+        "2025-10-28": {
+          "topic": "Seguridad vial fuera y dentro de la empresa.",
+          "duration": null
+        },
+        "2025-10-29": {
+          "topic": "Monitoreo ambiental en el centro de trabajo.",
+          "duration": null
+        },
+        "2025-10-30": {
+          "topic": "Preparación para auditorías internas de SSOMA.",
+          "duration": null
+        },
+        "2025-10-31": {
+          "topic": "Balance mensual: aprendizajes en seguridad y próximos retos.",
+          "duration": null
+        }
+      },
+      "weeklyNotes": {},
+      "weeklyNotesLog": {
+        "2025-W38": [
+          {
+            "date": "2025-09-15",
+            "event": "Nuevo personal",
+            "name": "RAMIREZ RIVERA JAVIER",
+            "dni": "72260513",
+            "position": "Operario"
+          },
+          {
+            "date": "2025-09-15",
+            "event": "Nuevo personal (Población)",
+            "name": "HINOJOSA GAVIDIA JAEN CARLO",
+            "dni": "44686606",
+            "position": "Ayudante"
+          },
+          {
+            "date": "2025-09-16",
+            "event": "Nuevo personal (Población)",
+            "name": "MUHLIG TEJEDA LUIS ENRIQUE",
+            "dni": "48643425",
+            "position": "Ayudante"
+          },
+          {
+            "date": "2025-09-18",
+            "event": "Baja",
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "dni": "006821798",
+            "position": "Operario"
+          },
+          {
+            "date": "2025-09-20",
+            "event": "Reactivación",
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "dni": "006821798",
+            "position": "Operario"
+          },
+          {
+            "date": "2025-09-20",
+            "event": "Baja",
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "dni": "45559985",
+            "position": "Ayudante"
+          }
+        ],
+        "2025-W39": [
+          {
+            "date": "2025-09-22",
+            "event": "Nuevo personal",
+            "name": "RIVERA CORDOVA JOSE MIGUEL",
+            "dni": "46834251",
+            "position": "Ayudante"
+          },
+          {
+            "date": "2025-09-22",
+            "event": "Baja",
+            "name": "ALEJANDRO MATOS JUNIOR JAVIER",
+            "dni": "48626725",
+            "position": "Operario"
+          },
+          {
+            "date": "2025-09-26",
+            "event": "Nuevo personal",
+            "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+            "dni": "46100082",
+            "position": "Soldador"
+          }
+        ],
+        "2025-W40": [
+          {
+            "date": "2025-09-29",
+            "event": "Nuevo personal",
+            "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+            "dni": "46100082",
+            "position": "Soldador"
+          }
+        ],
+        "2025-W41": [
+          {
+            "date": "2025-10-06",
+            "event": "Reactivación",
+            "name": "PACHERREZ MANIHUARI ANTONY",
+            "dni": "45559985",
+            "position": "Ayudante"
+          },
+          {
+            "date": "2025-10-06",
+            "event": "Baja",
+            "name": "CHIPANA DE LA CRUZ CRISTHIAN",
+            "dni": "46100082",
+            "position": "Soldador"
+          }
+        ],
+        "2025-W42": [
+          {
+            "date": "2025-10-13",
+            "event": "Reactivación",
+            "name": "FRANCISCO DANIEL ZAPATA H.",
+            "dni": "006821798",
+            "position": "Operario"
+          }
+        ]
+      }
+    },
+    "Losa Deportiva \"Sr. De La Justicia\"": {
+      "employees": [
+        {
+          "name": "PERICHE OLAYA FERNANDO JAVIER",
+          "dni": "42546578",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-10-13",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "VELASQUEZ CORDOVA EVER ANDRES",
+          "dni": "77103876",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "2025-10-13",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "VILLACREZ VALLES GENNER",
+          "dni": "10622894",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-10-13",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "RIOS SALAS JUAN MOISES",
+          "dni": "74255652",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "2025-10-13",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "SALAS RIOS MANUEL LUIS",
+          "dni": "74255653",
+          "position": "Ayudante",
+          "statusEvents": [
+            {
+              "date": "2025-10-13",
+              "active": true
+            }
+          ]
+        },
+        {
+          "name": "HUAMANI ALFARO GIANCARLOS",
+          "dni": "45709862",
+          "position": "Operario",
+          "statusEvents": [
+            {
+              "date": "2025-10-13",
+              "active": true
+            }
+          ]
+        }
+      ],
+      "attendance": {},
+      "weeklyHoursConfig": {
+        "0": 0,
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 9,
+        "5": 9,
+        "6": 5
+      },
+      "dailyTopics": {},
+      "weeklyNotes": {},
+      "weeklyNotesLog": {
+        "2025-W42": [
+          {
+            "date": "2025-10-13",
+            "event": "Nuevo personal",
+            "name": "PERICHE OLAYA FERNANDO JAVIER",
+            "dni": "42546578",
+            "position": "Operario"
+          },
+          {
+            "date": "2025-10-13",
+            "event": "Nuevo personal",
+            "name": "VELASQUEZ CORDOVA EVER ANDRES",
+            "dni": "77103876",
+            "position": "Ayudante"
+          },
+          {
+            "date": "2025-10-13",
+            "event": "Nuevo personal",
+            "name": "VILLACREZ VALLES GENNER",
+            "dni": "10622894",
+            "position": "Operario"
+          },
+          {
+            "date": "2025-10-13",
+            "event": "Nuevo personal",
+            "name": "RIOS SALAS JUAN MOISES",
+            "dni": "74255652",
+            "position": "Ayudante"
+          },
+          {
+            "date": "2025-10-13",
+            "event": "Nuevo personal",
+            "name": "SALAS RIOS MANUEL LUIS",
+            "dni": "74255653",
+            "position": "Ayudante"
+          },
+          {
+            "date": "2025-10-13",
+            "event": "Nuevo personal",
+            "name": "HUAMANI ALFARO GIANCARLOS",
+            "dni": "45709862",
+            "position": "Operario"
+          }
+        ]
+      }
+    }
+  },
+  "dailyTopics": {
+    "2025-09-01": "Uso correcto de los EPP (Equipos de Protección Personal)."
+  },
+  "locationDetails": {
+    "Losa Deportiva \"Santa Rosa\"": {
+      "address": "Losa Deportiva Del PARQUE 1 (lado oeste de las Manzanas O y P) de la Urb. Santa Rosa"
+    },
+    "Losa Deportiva \"La Bombonera\"": {
+      "address": "Losa Deportiva Del Lt. 3 de la Mz. V2 del ASENTAMIENTO HUMANO ASOC.DE POBLADORES DE VENTANILLA ALTA SECTOR PRIMERO"
+    },
+    "Losa Deportiva \"Atalaya\"": {
+      "address": "LOSA DEPORTIVA DEL LT. 10 DE LA MZ. IIA DEL ASENTAMIENTO HUMANO ASOC. DE POBLADORES DE VENTANILLA ALTA SECTOR TERCERO-ZONA B."
+    },
+    "Losa Deportiva \"Sr. De La Justicia\"": {
+      "address": "Losa Deportiva Del Lt. 2 de la Mz. VIA del ASENTAMIENTO HUMANO ASOC.DE POBLADORES DE VENTANILLA ALTA SECTOR TERCERO - ZONA B (A.H. SEÑOR DE LA JUSTICIA)"
+    }
+  },
+  "disabledLocations": [
+    "Losa Deportiva \"La Bombonera\"",
+    "Losa Deportiva \"Santa Rosa\""
+  ]
+}
