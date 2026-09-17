@@ -5,7 +5,7 @@
   <a href="https://enybyy.github.io/attendance-tracker-pwa/" target="_blank">
     <img src="https://img.shields.io/badge/▶️_PROBAR_DEMO_EN_VIVO-GitHub_Pages-22c55e?style=for-the-badge&logo=github&logoColor=white" alt="Demo en Vivo" />
   </a>
-  <a href="https://www.linkedin.com/in/eliud-rm/" target="_blank">
+  <a href="https://www.linkedin.com/in/eliud-rojas-mendoza-414652212/" target="_blank">
     <img src="https://img.shields.io/badge/LinkedIn-Eliud_RM-0284c7?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
   </a>
 </p>
@@ -87,6 +87,6 @@ La gestión y control de asistencia de empleados en faenas de campo, obras en co
 
 Desarrollo **Progressive Web Apps (PWA), sistemas de captura de datos en terreno, soluciones de gestión de personal y herramientas de reportería automatizada**.
 
-- **LinkedIn**: [Eliud RM](https://www.linkedin.com/in/eliud-rm/)
+- **LinkedIn**: [Eliud RM](https://www.linkedin.com/in/eliud-rojas-mendoza-414652212/)
 - **GitHub**: [@Enybyy](https://github.com/Enybyy)
 - *Disponible para proyectos freelance y consultorías de digitalización.*
