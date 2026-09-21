@@ -587,9 +587,12 @@
 
   /**
    * Decide con qué arrancar cuando no hay datos guardados.
-   * "demo"  -> sembrar datos de muestra en silencio
-   * "empty" -> arrancar vacío sin preguntar
-   * "ask"   -> comportamiento original (preguntar al usuario)
+   * "demo"  -> sembrar datos de muestra en silencio (por defecto)
+   * "empty" -> arrancar vacío sin preguntar (?demo=off)
+   * "ask"   -> no usado (se mantiene por compatibilidad)
+   *
+   * Comportamiento: siempre carga demo al iniciar por primera vez.
+   * El usuario puede comenzar vacío usando ?demo=off en la URL.
    */
   const decideInitialData = () => {
     const param = readParam();
@@ -598,16 +601,15 @@
     if (param === "1" || param === "on" || param === "reset") return "demo";
 
     if (lsGet(LS_OPTOUT_KEY) === "1") return "empty";
-    if (isDemoHost()) return "demo";
 
-    return "ask";
+    // Por defecto: siempre cargar datos de muestra la primera vez
+    return "demo";
   };
 
   /** ¿Re-sembrar aunque ya existan datos? (versión nueva o ?demo=reset) */
   const needsReseed = () => {
     if (readParam() === "reset") return true;
     if (lsGet(LS_OPTOUT_KEY) === "1") return false;
-    if (!isDemoHost()) return false;
 
     const seeded = lsGet(LS_SEED_KEY);
     return !!seeded && seeded !== DEMO_SEED_VERSION;
