@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="description" content="Sistema de Registro de Asistencia - Gestión de empleados y control de horas" />
+  <title>Sistema de Registro de Asistencia</title>
+
+  <!-- Tailwind CSS para un diseño moderno -->
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Librerías para exportar a Excel y PDF -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <!-- Librería para Gráficos -->
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="assets/css/app.css" />
+  <link rel="manifest" href="manifest.json" />
+</head>
+
+<body class="p-4 md:p-8">
+  <div class="max-w-[2000px] mx-auto space-y-8">
+    <!-- Encabezado + Selector de Sede compactos -->
+
+    <header
+      class="relative flex flex-col md:flex-row items-center justify-between gap-4 py-2 border-b border-white/5 pb-4 mb-6">
+      <!-- Title Section -->
+      <div class="text-center md:text-left z-10 w-full md:w-auto">
+        <h1
+          class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent filter drop-shadow-lg">
+          Registro de Asistencia
+        </h1>
+      </div>
+
+      <!-- Center Location Switcher -->
+      <div class="relative w-full md:w-auto md:absolute md:left-1/2 md:-translate-x-1/2 flex justify-center z-20">
+
+        <!-- Switcher Container -->
+        <div class="relative flex flex-col items-center group">
+
+          <!-- Main Switcher Widget -->
+          <div id="location-switcher-main"
+            class="flex items-center gap-3 bg-slate-800/80 backdrop-blur-md border border-slate-700/50 p-2 rounded-xl cursor-pointer shadow-lg hover:shadow-cyan-500/10 hover:border-cyan-500/30 transition-all duration-300">
+            <button id="prev-location" class="p-1.5 rounded-lg text-cyan-400 hover:bg-cyan-400/10 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+
+            <!-- Change w-[400px] to adjust fixed width manually -->
+            <div
+              class="text-center w-[280px] md:w-[400px] h-[60px] flex flex-col justify-center px-4 border-x border-slate-700/50">
+              <div id="current-location-name"
+                class="text-amber-400 text-lg md:text-xl font-bold truncate tracking-wide filter drop-shadow-sm"></div>
+              <div id="current-location-address" class="text-slate-400 text-xs truncate font-medium mt-0.5"></div>
+            </div>
+
+            <button id="next-location" class="p-1.5 rounded-lg text-cyan-400 hover:bg-cyan-400/10 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Dropdown Menu (Location List) -->
+          <div id="location-panel"
+            class="absolute top-full mt-3 w-full min-w-[320px] bg-slate-800 border border-slate-700 rounded-xl shadow-2xl z-30 hidden backdrop-blur-xl">
+            <div class="p-3 border-b border-slate-700/50">
+              <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Seleccionar Sede</span>
+            </div>
+            <div id="location-panel-list" class="max-h-64 overflow-y-auto p-2 space-y-1 custom-scrollbar"></div>
+
+            <div class="p-2 border-t border-slate-700/50 grid grid-cols-2 gap-2 bg-slate-900/30 rounded-b-xl">
+              <button id="addLocationToggle"
+                class="flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-cyan-400 bg-cyan-400/10 hover:bg-cyan-400/20 rounded-lg transition-colors">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                Nueva Losa
+              </button>
+              <button id="editLocationToggle"
+                class="flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-slate-300 bg-slate-700/30 hover:bg-slate-700/50 rounded-lg transition-colors">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+                  </path>
+                </svg>
+                Editar
+              </button>
+            </div>
+          </div>
+
+          <!-- Inline Forms (Add/Edit) -->
+          <div id="addLocationInline"
+            class="hidden absolute top-full mt-3 w-80 bg-slate-800 border border-slate-600 p-4 rounded-xl shadow-2xl z-30">
+            <h4 class="text-sm font-bold mb-3 text-cyan-400 flex items-center gap-2">
+              <span class="bg-cyan-400/20 p-1 rounded">✨</span> Nueva Losa
+            </h4>
+            <div class="space-y-3">
+              <input id="newLocationName" type="text" placeholder="Nombre (Ej. Losa Norte)"
+                class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-sm focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition-all" />
+              <input id="newLocationAddress" type="text" placeholder="Dirección / Referencia"
+                class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-sm focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition-all" />
+            </div>
+            <div class="flex justify-end gap-2 mt-4 pt-3 border-t border-slate-700">
+              <button id="cancelNewLocation"
+                class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-700 hover:bg-slate-600 transition-colors">Cancelar</button>
+              <button id="saveNewLocation"
+                class="px-3 py-1.5 rounded-lg text-xs font-medium bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white shadow-lg shadow-emerald-500/20 transition-all">Guardar</button>
+            </div>
+          </div>
+
+          <div id="editLocationInline"
+            class="hidden absolute top-full mt-3 w-80 bg-slate-800 border border-slate-600 p-4 rounded-xl shadow-2xl z-30">
+            <h4 class="text-sm font-bold mb-3 text-amber-400 flex items-center gap-2">
+              <span class="bg-amber-400/20 p-1 rounded">✏️</span> Editar Losa Actual
+            </h4>
+            <div class="space-y-3">
+              <input id="editLocationName" type="text" placeholder="Nombre"
+                class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-sm focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all" />
+              <input id="editLocationAddress" type="text" placeholder="Dirección"
+                class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-sm focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all" />
+            </div>
+            <div class="flex justify-end gap-2 mt-4 pt-3 border-t border-slate-700">
+              <button id="cancelEditLocation"
+                class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-700 hover:bg-slate-600 transition-colors">Cancelar</button>
+              <button id="saveEditLocation"
+                class="px-3 py-1.5 rounded-lg text-xs font-medium bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white shadow-lg shadow-amber-500/20 transition-all">Guardar
+                Cambios</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Controls (Menu) -->
+      <div class="flex items-center gap-3 z-10 w-full md:w-auto justify-end">
+        <button id="toggleSidebarBtn"
+          class="group relative flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-slate-700 hover:border-cyan-500/50 transition-all duration-300 shadow-md">
+          <span class="text-slate-300 group-hover:text-cyan-400 font-medium text-sm">Más Opciones</span>
+          <span class="relative flex h-3 w-3">
+            <span
+              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-20 group-hover:opacity-75"></span>
+            <span
+              class="relative inline-flex rounded-full h-3 w-3 bg-slate-600 group-hover:bg-cyan-500 transition-colors"></span>
+          </span>
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-slate-400 group-hover:text-white transition-colors ml-1" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="grid grid-cols-1 xl:grid-cols-[minmax(320px,420px)_1fr] gap-4 md:gap-6 lg:gap-8 relative">
+      <!-- Columna de Controles (Izquierda) -->
+
+      <div class="xl:col-span-1 space-y-4 md:space-y-6">
+
+        <!-- Collapsible 1: Gestión de Empleados -->
+        <div class="card rounded-lg shadow-lg overflow-hidden border border-slate-700/50">
+          <div
+            class="p-4 bg-slate-800/80 hover:bg-slate-800 transition-all cursor-pointer flex items-center justify-between group"
+            onclick="toggleSection('section-employees', this)">
+            <div class="flex items-center gap-3">
+              <span class="bg-cyan-500/20 p-2 rounded-lg text-cyan-400 group-hover:text-cyan-300 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </span>
+              <h2 class="font-bold text-slate-200 group-hover:text-white">Gestión de Empleados</h2>
+            </div>
+            <svg class="w-5 h-5 text-slate-400 transform transition-transform duration-300 chevron rotate-180"
+              fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+
+          <div id="section-employees"
+            class="p-4 md:p-6 border-t border-slate-700/50 transition-all duration-300 ease-in-out">
+            <div class="space-y-3">
+              <input type="text" id="employeeName" placeholder="Nombre completo del empleado"
+                class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-700 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 focus:outline-none text-sm transition-all" />
+
+              <input type="text" id="employeeDni" placeholder="DNI / CE del empleado"
+                class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-700 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 focus:outline-none text-sm transition-all" />
+
+              <input type="text" id="employeePosition" placeholder="Cargo del empleado"
+                class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-700 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 focus:outline-none text-sm transition-all" />
+
+              <button id="addEmployeeBtn"
+                class="btn btn-primary w-full py-2.5 rounded-lg font-bold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transition-all">
+                Agregar Empleado
+              </button>
+            </div>
+
+            <div class="mt-5 pt-4 border-t border-slate-700/50">
+              <input id="employeeFilter" type="text" placeholder="🔍 Buscar empleado..."
+                class="w-full p-2 mb-3 rounded-lg bg-slate-800 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm" />
+
+              <div id="employeeList" class="space-y-2 max-h-[20rem] overflow-y-auto pr-1 custom-scrollbar">
+                <!-- La lista de empleados se generará aquí -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collapsible 2: Registrar Asistencia -->
+        <div class="card rounded-lg shadow-lg overflow-hidden border border-slate-700/50">
+          <div
+            class="p-4 bg-slate-800/80 hover:bg-slate-800 transition-all cursor-pointer flex items-center justify-between group"
+            onclick="toggleSection('section-attendance', this)">
+            <div class="flex items-center gap-3">
+              <span
+                class="bg-purple-500/20 p-2 rounded-lg text-purple-400 group-hover:text-purple-300 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </span>
+              <h2 class="font-bold text-slate-200 group-hover:text-white">Registro de Asistencia</h2>
+            </div>
+            <svg class="w-5 h-5 text-slate-400 transform transition-transform duration-300 chevron rotate-180"
+              fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+
+          <div id="section-attendance"
+            class="p-4 md:p-6 border-t border-slate-700/50 transition-all duration-300 ease-in-out">
+            <div class="space-y-4">
+              <div class="relative">
+                <label for="employeeSearchSelect"
+                  class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1.5 flex items-center gap-1">
+                  Buscar Empleado
+                </label>
+                <input type="text" id="employeeSearchSelect" placeholder="Seleccionar empleado..."
+                  class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-700 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none text-sm transition-all"
+                  autocomplete="off" />
+
+                <div id="employeeDropdown"
+                  class="absolute z-10 w-full bg-slate-800 border border-slate-600 rounded-lg mt-1 max-h-48 overflow-y-auto hidden shadow-xl">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label for="checkInTime"
+                    class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1.5">Entrada</label>
+                  <input type="time" id="checkInTime"
+                    class="w-full p-2 rounded-lg bg-slate-900 border border-slate-600 focus:ring-2 focus:ring-purple-500 outline-none text-sm" />
+                </div>
+                <div>
+                  <label for="checkOutTime"
+                    class="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1.5">Salida</label>
+                  <input type="time" id="checkOutTime"
+                    class="w-full p-2 rounded-lg bg-slate-900 border border-slate-600 focus:ring-2 focus:ring-purple-500 outline-none text-sm" />
+                </div>
+              </div>
+
+              <div class="pt-2 space-y-2">
+                <button id="addAttendanceBtn" type="button"
+                  class="btn btn-primary w-full py-2.5 rounded-lg font-bold shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 border-none transition-all">
+                  Registrar Asistencia
+                </button>
+
+                <div class="grid grid-cols-2 gap-2 pt-2">
+                  <button id="addAllAttendanceBtn" type="button"
+                    class="btn btn-secondary w-full py-2 rounded-lg font-medium text-xs">
+                    Agregar todos (hoy)
+                  </button>
+                  <button id="clearAllAttendanceBtn" type="button"
+                    class="px-3 py-2 rounded-lg font-medium text-xs bg-red-500/10 text-red-400 border border-red-500/30 hover:bg-red-500/20 transition-colors"
+                    title="Eliminar todos los registros de hoy">
+                    Eliminar todos
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          function toggleSection(id, header) {
+            const content = document.getElementById(id);
+            const chevron = header.querySelector('.chevron');
+
+            if (content.classList.contains('hidden')) {
+              content.classList.remove('hidden');
+              chevron.classList.add('rotate-180');
+            } else {
+              content.classList.add('hidden');
+              chevron.classList.remove('rotate-180');
+            }
+          }
+        </script>
+      </div>
+
+      <!-- Columna de Reporte (Centro) -->
+
+      <div class="space-y-4 md:space-y-6 lg:space-y-8">
+        <!-- Reporte Diario -->
+
+        <div class="card p-4 md:p-6 rounded-lg shadow-lg">
+          <div
+            class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-600 pb-3 mb-4 gap-3">
+            <div class="flex-1">
+              <h2 class="text-xl font-semibold mb-2">Reporte Diario</h2>
+
+              <div class="flex items-center gap-2 flex-wrap">
+                <!-- Fecha -->
+
+                <button id="prevDayBtn" type="button" class="btn btn-secondary px-2 py-1 rounded-md text-xs"
+                  title="Día anterior">
+                  ◀
+                </button>
+
+                <!-- Custom Date Display Wrapper -->
+                <div class="relative w-32 md:w-36">
+                  <input type="text" id="reportDateVisual"
+                    class="w-full p-1 rounded-md text-sm md:text-base text-center bg-slate-800 border border-slate-600 focus:ring-2 focus:ring-cyan-500 outline-none cursor-pointer"
+                    placeholder="dd/mm/aaaa" readonly />
+                  <input type="date" id="reportDate" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                </div>
+
+                <button id="nextDayBtn" type="button" class="btn btn-secondary px-2 py-1 rounded-md text-xs"
+                  title="Día siguiente">
+                  ▶
+                </button>
+
+                <span id="isoWeekBadge" class="text-sm bg-slate-700 text-slate-200 px-2 py-0.5 rounded-full"></span>
+
+                <span id="weekRangeBadge" class="text-sm text-slate-400"></span>
+
+                <span class="text-slate-500">|</span>
+
+                <!-- Horas -->
+
+                <span class="text-sm text-slate-300">Hrs:</span>
+
+                <input type="number" id="expectedHours" min="1" max="12" step="0.5" value="9"
+                  class="w-12 p-1 rounded-md text-center" />
+
+                <button id="setWeeklyHours" type="button" class="btn btn-secondary px-1.5 py-1 text-xs rounded-md"
+                  title="Configurar horas">
+                  ⚙️
+                </button>
+
+                <span class="text-slate-500">|</span>
+
+                <!-- Tema -->
+
+                <span class="text-sm text-slate-300">Tema:</span>
+
+                <input type="text" id="dailyTopic" placeholder="Tema del día..."
+                  class="p-1 rounded-md w-full md:w-64 text-sm md:text-base" />
+
+                <input type="number" id="dailyTopicDuration" min="0" step="5" placeholder="min"
+                  class="w-16 p-1 rounded-md text-center" />
+
+                <button id="saveDailyTopic" type="button" class="btn btn-secondary px-2 py-1 text-xs rounded-md"
+                  title="Guardar">
+                  💾
+                </button>
+              </div>
+            </div>
+
+            <!-- Botones de acción -->
+
+            <div class="flex items-center gap-2">
+              <button id="exportExcelBtn"
+                class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-md transition-colors"
+                title="Exportar a Excel">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M12.9,14.5L15.8,19H14L12,15.6L10,19H8.2L11.1,14.5L8.2,10H10L12,13.4L14,10H15.8L12.9,14.5Z" />
+                </svg>
+              </button>
+
+              <button id="exportPdfBtn"
+                class="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-md transition-colors"
+                title="Exportar a PDF">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M10.1,11.4C10.08,11.44 9.81,13.16 8,16.09C8,16.09 4.5,17.91 5.33,19.27C6,20.35 7.65,19.23 9.07,16.59C9.07,16.59 10.89,15.95 13.31,15.77C13.31,15.77 17.17,17.5 17.7,15.66C18.22,13.8 14.64,14.22 14,14.41C14,14.41 12,13.06 11.5,11.2C11.5,11.2 12.64,7.25 10.89,7.3C9.14,7.35 9.8,10.43 10.1,11.4M10.91,12.44C10.94,12.45 11.38,13.65 12.8,14.9C12.8,14.9 10.47,15.36 9.41,15.8C9.41,15.8 10.41,14.07 10.91,12.44M14.84,15.16C15.42,15 17.17,15.31 17.1,15.64C17.04,15.97 14.84,15.16 14.84,15.16M7.77,17C7.24,18.24 6.33,19 6.1,19C5.87,19 6.8,17.4 7.77,17M10.91,10.07C10.91,10 10.55,7.87 10.91,7.92C11.45,8 10.91,10 10.91,10.07Z" />
+                </svg>
+              </button>
+
+              <button id="manageWeeklyLogBtn"
+                class="bg-slate-600 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-md transition-colors text-xs"
+                title="Registros generales">
+                📋
+              </button>
+            </div>
+          </div>
+
+          <div id="summary" class="mb-4 flex flex-wrap gap-4 text-sm"></div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+              <thead class="bg-slate-700 text-xs uppercase">
+                <tr>
+                  <th scope="col" class="px-4 py-2 rounded-l-lg cursor-pointer select-none" data-sort-key="name"
+                    data-sort-type="string">
+                    Empleado
+                    <span class="text-xs opacity-70" data-sort-indicator="name"></span>
+                  </th>
+
+                  <th scope="col" class="px-4 py-2 cursor-pointer select-none" data-sort-key="dni"
+                    data-sort-type="number">
+                    DNI / CE
+                    <span class="text-xs opacity-70" data-sort-indicator="dni"></span>
+                  </th>
+
+                  <th scope="col" class="px-4 py-2 cursor-pointer select-none" data-sort-key="position"
+                    data-sort-type="string">
+                    Cargo
+                    <span class="text-xs opacity-70" data-sort-indicator="position"></span>
+                  </th>
+
+                  <th scope="col" class="px-4 py-2">Entrada</th>
+
+                  <th scope="col" class="px-4 py-2">Almuerzo</th>
+
+                  <th scope="col" class="px-4 py-2">Salida</th>
+
+                  <th scope="col" class="px-4 py-2 cursor-pointer select-none" data-sort-key="total"
+                    data-sort-type="number">
+                    Hrs. Trabajadas
+                    <span class="text-xs opacity-70" data-sort-indicator="total"></span>
+                  </th>
+
+                  <th scope="col" class="px-4 py-2 cursor-pointer select-none" data-sort-key="overtime"
+                    data-sort-type="number">
+                    Hrs. Extra
+                    <span class="text-xs opacity-70" data-sort-indicator="overtime"></span>
+                  </th>
+
+                  <th scope="col" class="px-4 py-2">Estado</th>
+
+                  <th scope="col" class="px-4 py-2">Observaciones</th>
+
+                  <th scope="col" class="px-4 py-2 rounded-r-lg w-16">
+                    Acciones
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody id="attendanceTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Resumen Visual de la Semana -->
+
+        <div class="card p-4 md:p-6 rounded-lg shadow-lg">
+          <!-- Resumen Visual Rápido -->
+
+          <div id="resumen-visual-semanal" class="">
+            <h3 class="text-lg font-semibold mb-4">
+              Resumen Visual de la Semana
+            </h3>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <!-- Gráfico de Asistencia -->
+
+              <div class="bg-slate-800 p-4 rounded-lg lg:col-span-2">
+                <h4 class="text-md font-medium mb-3 text-center">
+                  Asistencia por Día
+                </h4>
+
+                <div class="h-56">
+                  <canvas id="quickAttendanceChart"></canvas>
+                </div>
+              </div>
+
+              <!-- Métricas Clave -->
+
+              <div class="bg-slate-800 p-4 rounded-lg">
+                <h4 class="text-md font-medium mb-3 text-center">
+                  Métricas de la Semana
+                </h4>
+
+                <div id="weeklyMetrics" class="space-y-3">
+                  <!-- Métricas se generarán aquí -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Empleados Destacados -->
+
+            <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <!-- Más Ausencias -->
+
+              <div class="bg-slate-800 p-4 rounded-lg">
+                <h4 class="text-md font-medium mb-3 text-red-400">
+                  🚫 Más Ausencias
+                </h4>
+
+                <div id="mostAbsent" class="space-y-2">
+                  <!-- Lista se generará aquí -->
+                </div>
+              </div>
+
+              <!-- Horas Extra -->
+
+              <div class="bg-slate-800 p-4 rounded-lg">
+                <h4 class="text-md font-medium mb-3 text-green-400">
+                  ⭐ Horas Extra
+                </h4>
+
+                <div id="overtimeEmployees" class="space-y-2">
+                  <!-- Lista se generará aquí -->
+                </div>
+              </div>
+
+              <!-- Deuda de Horas -->
+
+              <div class="bg-slate-800 p-4 rounded-lg">
+                <h4 class="text-md font-medium mb-3 text-amber-400">
+                  ⚠️ Horas Faltantes
+                </h4>
+
+                <div id="debtHours" class="space-y-2">
+                  <!-- Lista se generará aquí -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Planilla de Pago (Nueva Sección) -->
+      <div class="card p-4 md:p-6 rounded-lg shadow-lg xl:col-span-2">
+        <div
+          class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-600 pb-3 mb-4 gap-3">
+          <div class="flex items-center gap-3">
+            <div class="bg-emerald-500/20 p-2 rounded-lg">
+              <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z">
+                </path>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-xl font-bold text-white">💰 Planilla de Pago</h2>
+              <p class="text-xs text-slate-400">Cálculo automático basado en días trabajados</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="text-sm text-slate-400">Semana:</span>
+            <span id="payrollWeekLabel"
+              class="text-sm font-medium text-emerald-400 bg-emerald-900/30 px-2 py-1 rounded">--</span>
+            <button id="exportPayrollExcelBtn"
+              class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-2 rounded-lg transition-colors flex items-center gap-2 text-sm font-medium"
+              title="Exportar Planilla a Excel">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M12.9,14.5L15.8,19H14L12,15.6L10,19H8.2L11.1,14.5L8.2,10H10L12,13.4L14,10H15.8L12.9,14.5Z" />
+              </svg>
+              Excel
+            </button>
+            <button id="exportPayrollPdfBtn"
+              class="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg transition-colors flex items-center gap-2 text-sm font-medium"
+              title="Exportar Planilla a PDF">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M10.1,11.4C10.08,11.44 9.81,13.16 8,16.09C8,16.09 4.5,17.91 5.33,19.27C6,20.35 7.65,19.23 9.07,16.59C9.07,16.59 10.89,15.95 13.31,15.77C13.31,15.77 17.17,17.5 17.7,15.66C18.22,13.8 14.64,14.22 14,14.41C14,14.41 12,13.06 11.5,11.2C11.5,11.2 12.64,7.25 10.89,7.3C9.14,7.35 9.8,10.43 10.1,11.4M10.91,12.44C10.94,12.45 11.38,13.65 12.8,14.9C12.8,14.9 10.47,15.36 9.41,15.8C9.41,15.8 10.41,14.07 10.91,12.44M14.84,15.16C15.42,15 17.17,15.31 17.1,15.64C17.04,15.97 14.84,15.16 14.84,15.16M7.77,17C7.24,18.24 6.33,19 6.1,19C5.87,19 6.8,17.4 7.77,17M10.91,10.07C10.91,10 10.55,7.87 10.91,7.92C11.45,8 10.91,10 10.91,10.07Z" />
+              </svg>
+              PDF
+            </button>
+          </div>
+        </div>
+
+        <!-- Resumen de Planilla -->
+        <div id="payrollSummary" class="mb-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50">
+            <div class="text-xs text-slate-400">Total Empleados</div>
+            <div id="payrollTotalEmployees" class="text-xl font-bold text-white">0</div>
+          </div>
+          <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50">
+            <div class="text-xs text-slate-400">Total Días Trabajados</div>
+            <div id="payrollTotalDays" class="text-xl font-bold text-cyan-400">0</div>
+          </div>
+          <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50">
+            <div class="text-xs text-slate-400">Subtotal (Depósito)</div>
+            <div id="payrollTotalDeposito" class="text-xl font-bold text-emerald-400">S/ 0.00</div>
+          </div>
+          <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50">
+            <div class="text-xs text-slate-400">Subtotal (Efectivo)</div>
+            <div id="payrollTotalEfectivo" class="text-xl font-bold text-amber-400">S/ 0.00</div>
+          </div>
+        </div>
+
+        <!-- Tabla de Planilla -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead class="bg-gradient-to-r from-emerald-900/50 to-slate-800 text-xs uppercase">
+              <tr>
+                <th scope="col" class="px-3 py-2 rounded-l-lg">#</th>
+                <th scope="col" class="px-3 py-2">Empleado</th>
+                <th scope="col" class="px-3 py-2">DNI</th>
+                <th scope="col" class="px-3 py-2">Procedencia</th>
+                <th scope="col" class="px-3 py-2">Cargo</th>
+                <th scope="col" class="px-3 py-2 text-center">Tarifa</th>
+                <th scope="col" class="px-2 py-2 text-center w-8">L</th>
+                <th scope="col" class="px-2 py-2 text-center w-8">M</th>
+                <th scope="col" class="px-2 py-2 text-center w-8">X</th>
+                <th scope="col" class="px-2 py-2 text-center w-8">J</th>
+                <th scope="col" class="px-2 py-2 text-center w-8">V</th>
+                <th scope="col" class="px-2 py-2 text-center w-8">S</th>
+                <th scope="col" class="px-2 py-2 text-center w-8">D</th>
+                <th scope="col" class="px-3 py-2 text-center">Total</th>
+                <th scope="col" class="px-3 py-2 text-center">Monto</th>
+                <th scope="col" class="px-3 py-2">Modalidad</th>
+                <th scope="col" class="px-3 py-2">Banco</th>
+                <th scope="col" class="px-3 py-2 rounded-r-lg">Cuenta</th>
+              </tr>
+            </thead>
+            <tbody id="payrollTableBody">
+              <!-- Se generará dinámicamente -->
+            </tbody>
+            <tfoot class="bg-slate-800/80 font-semibold">
+              <tr>
+                <td colspan="13" class="px-3 py-2 text-right">TOTAL GENERAL:</td>
+                <td id="payrollFooterDays" class="px-3 py-2 text-center text-cyan-400">0</td>
+                <td id="payrollFooterMonto" class="px-3 py-2 text-center text-emerald-400">S/ 0.00</td>
+                <td colspan="3"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- SIDEBAR / OFF-CANVAS -->
+  <div id="settingsSidebar"
+    class="fixed inset-y-0 right-0 w-[480px] bg-slate-900 border-l border-slate-700 shadow-2xl transform translate-x-full transition-transform duration-300 z-[100] flex flex-col">
+    <div class="p-5 border-b border-slate-700 flex items-center justify-between bg-slate-800/50">
+      <h2 class="text-lg font-bold text-white flex items-center gap-2">
+        <span class="bg-cyan-500/20 p-1.5 rounded-lg text-cyan-400">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+            </path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z">
+            </path>
+          </svg>
+        </span>
+        Más Opciones
+      </h2>
+      <button id="closeSidebarBtn"
+        class="text-slate-400 hover:text-white transition-colors p-1 hover:bg-slate-700/50 rounded-lg">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-5 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-slate-900">
+      <div class="space-y-6">
+
+        <!-- Gestión de Losas -->
+        <div class="bg-slate-800/40 p-4 rounded-xl border border-slate-700/50">
+          <div class="flex items-center gap-2 mb-3">
+            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+              </path>
+            </svg>
+            <h3 class="text-sm font-bold text-slate-200 uppercase tracking-wide">Gestión de Losas</h3>
+          </div>
+
+          <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+            Controla qué losas aparecen disponibles en el selector principal.
+          </p>
+
+          <div id="locationToggleList" class="space-y-2">
+            <!-- Lista de losas con toggle se generará aquí -->
+          </div>
+        </div>
+
+        <!-- Respaldo de Datos (Moved here) -->
+        <div class="bg-slate-800/40 p-4 rounded-xl border border-slate-700/50">
+          <div class="flex items-center gap-2 mb-3">
+            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
+            </svg>
+            <h3 class="text-sm font-bold text-slate-200 uppercase tracking-wide">Respaldo y Exportación</h3>
+          </div>
+
+          <div class="space-y-3">
+            <button id="linkStorageFolderBtn" class="btn btn-secondary w-full py-2 rounded-md font-medium text-xs">
+              Seleccionar carpeta de datos (db)
+            </button>
+
+            <p id="storageStatus" class="text-xs text-slate-400 text-center">
+              Estado: sin configurar
+            </p>
+
+            <div class="grid grid-cols-2 gap-2">
+              <button id="exportJsonBtn"
+                class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/50 py-2 rounded-md font-medium text-xs transition-colors">
+                Exportar JSON
+              </button>
+              <button id="importJsonBtn"
+                class="bg-slate-700 hover:bg-slate-600 text-slate-200 py-2 rounded-md font-medium text-xs transition-colors">
+                Importar JSON
+              </button>
+            </div>
+
+            <input id="importJsonInput" type="file" accept="application/json" class="hidden" />
+
+            <button id="exportReportJsonBtn" class="btn btn-secondary w-full py-2 rounded-md font-medium text-xs">
+              Exportar Reporte JSON (IA)
+            </button>
+            <button id="exportLocationMonthJsonBtn"
+              class="btn btn-secondary w-full py-2 rounded-md font-medium text-xs">
+              Exportar JSON Losa (Mes)
+            </button>
+          </div>
+        </div>
+
+        <!-- Datos de Muestra -->
+        <div class="bg-slate-800/40 p-4 rounded-xl border border-slate-700/50">
+          <div class="flex items-center gap-2 mb-3">
+            <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+              </path>
+            </svg>
+            <h3 class="text-sm font-bold text-slate-200 uppercase tracking-wide">Datos de Muestra</h3>
+          </div>
+
+          <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+            Carga datos de ejemplo realistas para probar el sistema. Esto reemplazará los datos actuales.
+          </p>
+
+          <button id="loadSampleDataBtn"
+            class="w-full py-2 rounded-md font-medium text-xs bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white transition-all shadow-lg shadow-cyan-500/20">
+            🧪 Cargar Datos de Muestra
+          </button>
+        </div>
+
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-slate-800 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700/50">
+          <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+          <span class="text-[10px] text-slate-400 font-medium tracking-wide">SSOMA SYSTEM v2.1 Connected</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div id="sidebarOverlay"
+    class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] hidden transition-all duration-300 opacity-0"></div>
+
+  <!-- Scripts for Sidebar Interaction -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sidebar = document.getElementById('settingsSidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      const toggleBtn = document.getElementById('toggleSidebarBtn');
+      const closeBtn = document.getElementById('closeSidebarBtn');
+
+      function openSidebar() {
+        sidebar.classList.remove('translate-x-full');
+        overlay.classList.remove('hidden');
+        // Force reflow
+        void overlay.offsetWidth;
+        overlay.classList.remove('opacity-0');
+      }
+
+      function closeSidebar() {
+        sidebar.classList.add('translate-x-full');
+        overlay.classList.add('opacity-0');
+        setTimeout(() => {
+          overlay.classList.add('hidden');
+        }, 300);
+      }
+
+      if (toggleBtn) toggleBtn.addEventListener('click', openSidebar);
+      if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+      if (overlay) overlay.addEventListener('click', closeSidebar);
+    });
+  </script>
+
+  <!-- Modal Editar Empleado -->
+
+  <div id="editEmployeeModal"
+    class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-[150]">
+    <div class="card w-full max-w-2xl rounded-xl shadow-2xl border border-slate-700">
+      <div class="p-5 border-b border-slate-600 bg-gradient-to-r from-slate-800 to-slate-700">
+        <h3 class="text-lg font-bold flex items-center gap-2">
+          <span class="bg-cyan-500/20 p-1.5 rounded-lg text-cyan-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+          </span>
+          Editar Empleado
+        </h3>
+      </div>
+
+      <div class="p-5 space-y-5 max-h-[70vh] overflow-y-auto">
+        <!-- Datos Básicos -->
+        <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+          <h4 class="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+            <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2">
+              </path>
+            </svg>
+            Datos Personales
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs text-slate-400 mb-1" for="editEmployeeName">Nombre Completo *</label>
+              <input id="editEmployeeName" type="text"
+                class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 focus:outline-none text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1" for="editEmployeeDni">DNI / CE *</label>
+              <input id="editEmployeeDni" type="text"
+                class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 focus:outline-none text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1" for="editEmployeePosition">Cargo *</label>
+              <input id="editEmployeePosition" type="text"
+                class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 focus:outline-none text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1" for="editEmployeeProcedencia">Procedencia</label>
+              <input id="editEmployeeProcedencia" type="text" placeholder="Ej: Consorcio, Sindicato..."
+                class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-600 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 focus:outline-none text-sm" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Datos de Pago -->
+        <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
+          <h4 class="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+              </path>
+            </svg>
+            Datos de Pago (Planilla)
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs text-slate-400 mb-1" for="editEmployeeTarifa">Tarifa Diaria (S/)</label>
+              <input id="editEmployeeTarifa" type="number" step="0.01" min="0" placeholder="0.00"
+                class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-600 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1" for="editEmployeeModalidadPago">Modalidad de Pago</label>
+              <select id="editEmployeeModalidadPago"
+                class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-600 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none text-sm">
+                <option value="">Sin especificar</option>
+                <option value="Depósito en cuenta">Depósito en cuenta</option>
+                <option value="Efectivo">Efectivo</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1" for="editEmployeeBanco">Banco</label>
+              <select id="editEmployeeBanco"
+                class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-600 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none text-sm">
+                <option value="">Sin banco</option>
+                <option value="BCP">BCP</option>
+                <option value="BBVA">BBVA</option>
+                <option value="Interbank">Interbank</option>
+                <option value="Scotiabank">Scotiabank</option>
+                <option value="BanBif">BanBif</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-xs text-slate-400 mb-1" for="editEmployeeCuenta">Número de Cuenta</label>
+              <input id="editEmployeeCuenta" type="text" placeholder="Número de cuenta bancaria"
+                class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-600 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1" for="editEmployeeCCI">CCI</label>
+              <input id="editEmployeeCCI" type="text" placeholder="Código Interbancario"
+                class="w-full p-2.5 rounded-lg bg-slate-900 border border-slate-600 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none text-sm" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-5 flex justify-end gap-3 border-t border-slate-600 bg-slate-800/30">
+        <button id="cancelEditEmployee"
+          class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-sm font-medium transition-colors">
+          Cancelar
+        </button>
+        <button id="saveEditEmployee"
+          class="px-5 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-white text-sm font-semibold shadow-lg shadow-cyan-500/20 transition-all">
+          Guardar Cambios
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Editar Asistencia -->
+
+  <div id="editAttendanceModal" class="fixed inset-0 bg-black/60 flex items-center justify-center p-4 hidden">
+    <div class="card w-full max-w-md rounded-lg shadow-xl">
+      <div class="p-6 border-b border-slate-600">
+        <h3 class="text-lg font-semibold">Editar asistencia</h3>
+
+        <p class="text-sm text-slate-400 mt-1">
+          Empleado:
+          <span id="editAttendanceEmployee" class="font-medium text-slate-200"></span>
+        </p>
+      </div>
+
+      <div class="p-6 space-y-4">
+        <div>
+          <label class="block text-sm text-slate-300 mb-1" for="editCheckInTime">Hora de entrada</label>
+
+          <input id="editCheckInTime" type="time"
+            class="w-full p-2 rounded-md focus:ring-2 focus:ring-cyan-500 focus:outline-none" />
+        </div>
+
+        <div>
+          <label class="block text-sm text-slate-300 mb-1" for="editCheckOutTime">Hora de salida</label>
+
+          <input id="editCheckOutTime" type="time"
+            class="w-full p-2 rounded-md focus:ring-2 focus:ring-cyan-500 focus:outline-none" />
+        </div>
+      </div>
+
+      <div class="p-6 flex justify-end gap-2 border-t border-slate-600">
+        <button id="cancelEditAttendance" class="btn btn-secondary px-4 py-2 rounded-md">
+          Cancelar
+        </button>
+
+        <button id="saveEditAttendance" class="btn btn-primary px-4 py-2 rounded-md font-semibold">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Revisión Planilla (Descuentos/Tardanzas) -->
+  <div id="payrollReviewModal"
+    class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-[160]">
+    <div class="card w-full max-w-3xl rounded-xl shadow-2xl border border-slate-700 bg-slate-900">
+      <div class="p-5 border-b border-slate-700 flex items-center justify-between">
+        <h3 class="text-lg font-bold flex items-center gap-2 text-slate-100">
+          <span class="bg-amber-500/20 p-1.5 rounded-lg text-amber-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </span>
+          Revisión de Asistencia: <span id="reviewEmployeeName" class="text-cyan-400"></span>
+        </h3>
+        <button id="closePayrollReviewModal" class="text-slate-400 hover:text-white transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-5">
+        <div class="mb-4 bg-slate-800/50 p-3 rounded-lg text-xs text-slate-400 border border-slate-700/50 flex gap-2">
+          <svg class="w-4 h-4 mt-0.5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p>
+            Revisa las incidencias detectadas (tardanzas > 15min, salidas tempranas).
+            Puedes <strong>aplicar un descuento</strong> (monto en S/) o <strong>justificar</strong> la incidencia.
+          </p>
+        </div>
+
+        <!-- Encabezados -->
+        <div class="grid grid-cols-12 gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 px-2">
+          <div class="col-span-2">Fecha</div>
+          <div class="col-span-3">Incidencia</div>
+          <div class="col-span-2 text-center">Datos</div>
+          <div class="col-span-5 text-right">Acción</div>
+        </div>
+
+        <div id="reviewList" class="space-y-2 max-h-[50vh] overflow-y-auto px-1 custom-scrollbar">
+          <!-- Items generados dinámicamente -->
+        </div>
+      </div>
+
+      <div class="p-5 border-t border-slate-700 flex justify-between items-center bg-slate-800/30 rounded-b-xl">
+        <div class="text-xs text-slate-400">
+          <span id="reviewPendingCount" class="font-bold text-amber-400">0</span> pendientes
+        </div>
+        <button id="savePayrollReviewBtn"
+          class="px-5 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-white font-semibold shadow-lg shadow-cyan-500/20 transition-all">
+          Guardar Revisiones
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="storage-simple.js"></script>
+  <script src="assets/js/demo-data.js"></script>
+  <script src="assets/js/app.js"></script>
+
+  <!-- Registro del Service Worker para PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then((registration) => {
+            console.log('Service Worker registrado con éxito:', registration.scope);
+          })
+          .catch((error) => {
+            console.log('Error al registrar Service Worker:', error);
+          });
+      });
+    }
+  </script>
+</body>
+
+</html>

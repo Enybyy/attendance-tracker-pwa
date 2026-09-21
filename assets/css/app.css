@@ -1,0 +1,163 @@
+/* Estilos personalizados para un look más "bacano" */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #111827; /* Gris oscuro para el fondo */
+  color: #f3f4f6;
+}
+
+.card {
+  background-color: #1f2937;
+  border: 1px solid #374151;
+}
+
+.btn {
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary {
+  background-color: #0891b2; /* Cian */
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #06b6d4;
+}
+
+.btn-secondary {
+  background-color: #4b5563;
+}
+
+.btn-secondary:hover {
+  background-color: #6b7280;
+}
+
+.btn-edit {
+  background-color: #2563eb;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-delete {
+  background-color: #dc2626;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #b91c1c;
+}
+
+.btn-success {
+  background-color: #16a34a; /* Verde */
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #22c55e;
+}
+
+.btn-danger {
+  background-color: #dc2626;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #ef4444;
+}
+
+input,
+select {
+  background-color: #374151;
+  border: 1px solid #4b5563;
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+/* Scrollbar sutil y oscuro para la lista de empleados */
+#employeeList {
+  scrollbar-width: thin;
+  scrollbar-color: #475569 #0f172a;
+}
+
+#employeeList::-webkit-scrollbar {
+  width: 8px;
+}
+
+#employeeList::-webkit-scrollbar-track {
+  background: #0f172a;
+  border-radius: 9999px;
+}
+
+#employeeList::-webkit-scrollbar-thumb {
+  background-color: #475569;
+  border-radius: 9999px;
+  border: 2px solid #0f172a;
+}
+
+/* Mejoras para móviles */
+@media (max-width: 768px) {
+  /* Hacer tablas scrollables horizontalmente */
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Mejorar inputs en móviles */
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  input[type="time"],
+  select {
+    font-size: 16px; /* Evita zoom automático en iOS */
+    min-height: 44px; /* Tamaño táctil recomendado */
+  }
+
+  /* Mejorar botones en móviles */
+  button {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+
+  /* Reducir espaciado en tablas para móviles */
+  table th,
+  table td {
+    padding: 0.5rem !important;
+    font-size: 0.875rem;
+  }
+
+  /* Ocultar columnas menos importantes en móviles */
+  @media (max-width: 640px) {
+    table th:nth-child(3),
+    table td:nth-child(3) {
+      display: none; /* Ocultar columna de cargo */
+    }
+  }
+}
+
+/* Optimización para PWA */
+@media (display-mode: standalone) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Mejorar scroll en toda la app */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hacer que los modales sean más amigables en móviles */
+@media (max-width: 640px) {
+  #editEmployeeModal > div,
+  #editAttendanceModal > div {
+    margin: 1rem;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
