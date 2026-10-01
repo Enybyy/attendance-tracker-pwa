@@ -17,6 +17,7 @@ const channel = process.env.BROWSER_CHANNEL || 'chrome';
 const browser = await chromium.launch({ headless: true, ...(channel === 'chromium' ? {} : { channel }) });
 const context = await browser.newContext({ viewport: { width: 1440, height: 1000 }, timezoneId: 'America/Lima', acceptDownloads: true });
 const page = await context.newPage();
+await page.clock.setFixedTime(new Date('2026-10-01T15:00:00Z'));
 const errors = [], messages = [];
 page.on('pageerror', error => errors.push(error.message));
 page.on('dialog', async dialog => { messages.push(dialog.message()); await dialog.accept(); });
@@ -72,6 +73,7 @@ try {
     }
   }, fixture);
   const ui = await fixtureContext.newPage();
+  await ui.clock.setFixedTime(new Date('2026-10-01T15:00:00Z'));
   ui.on('pageerror', error => errors.push(error.message));
   ui.on('dialog', dialog => dialog.accept());
   const saved = () => ui.evaluate(async () => { await window.storage.queue; return window.storage.load(); });
@@ -135,6 +137,7 @@ try {
   const corruptContext = await browser.newContext();
   await corruptContext.addInitScript(() => localStorage.setItem('appData','{invalid json'));
   const corruptPage = await corruptContext.newPage();
+  await corruptPage.clock.setFixedTime(new Date('2026-10-01T15:00:00Z'));
   let loadError = '';
   corruptPage.on('dialog', dialog => { loadError=dialog.message(); return dialog.accept(); });
   await corruptPage.goto(baseURL,{waitUntil:'networkidle'});
