@@ -1,134 +1,122 @@
-# 📋 Attendance Tracker PWA
+<div align="center">
 
-> **Multi-site workforce attendance management system** built for the construction & civil works industry, with local persistence and an installable PWA.
+# Attendance Tracker PWA
 
-**[🚀 Live Demo](https://enybyy.github.io/attendance-tracker-pwa)**
+### Del registro de asistencia al cierre semanal de la obra.
 
----
+Control de personal por sede, revisión de incidencias y planilla referencial con reportes en Excel y PDF. Una aplicación web para supervisores de obra y equipos SSOMA, que funciona en el navegador y conserva los datos en el dispositivo.
 
-## Overview
+<a href="https://enybyy.github.io/attendance-tracker-pwa/"><img src="docs/media/demo.svg" width="360" alt="Abrir demo · probar con datos de ejemplo"></a>
 
-A **Progressive Web App** designed for SSOMA (Occupational Safety, Health and Environment) departments to manage workforce attendance across multiple construction sites. The system handles daily check-in/check-out logging, weekly payroll summaries, SSOMA safety talk records, and PDF/Excel reporting — all running entirely in the browser with no backend required.
+<p><a href="https://github.com/Enybyy"><img src="docs/media/github.svg" width="112" alt="GitHub de Eliud Rojas Mendoza"></a>
+<a href="https://www.linkedin.com/in/eliud-rojas-mendoza-414652212/"><img src="docs/media/linkedin.svg" width="112" alt="LinkedIn de Eliud Rojas Mendoza"></a>
+<a href="https://www.upwork.com/freelancers/~01471ca462b236e8e5"><img src="docs/media/upwork.svg" width="112" alt="Contactar a Eliud en Upwork"></a></p>
 
-Built to replace paper-based attendance registers used on active construction projects (sports courts, civil infrastructure), this tool was developed for real-world field use where internet connectivity may be intermittent.
+[![Registro diario de asistencia en la aplicación real](docs/screenshots/asistencia.png)](https://enybyy.github.io/attendance-tracker-pwa/)
 
----
+*Captura real del sistema. Los trabajadores, documentos, cuentas y montos de la demo son ficticios.*
 
-## ✨ Features
+[El problema](#el-problema) · [La solución](#la-solución) · [Explorar el sistema](#explorar-el-sistema) · [Reportes](#reportes-listos-para-compartir) · [Contacto](#conversemos-sobre-tu-proyecto)
 
-### Core
-- **Multi-site management** — switch between multiple worksites (losas/sedes) from a single interface
-- **Daily attendance register** — log employee check-in / check-out times with observations
-- **Automatic hour calculation** — computes worked hours, overtime, and applies automatic 1-hour lunch deduction (12:00–13:00) on weekdays
-- **Employee roster management** — add, edit, deactivate, and track personnel per site with full profile data (DNI, position, bank details, daily rate)
-- **Status event log** — records hiring and termination dates per employee per week
+</div>
 
-### Payroll & Finance
-- **Weekly payroll review** — flag attendance incidents (late arrivals, early departures, absences) and mark them as approved or discounted
-- **Discount tracking** — record partial or full-day deductions per incident
-- **Per-site salary summaries** — weekly earnings calculations based on daily rates and worked hours
+## El problema
 
-### SSOMA Compliance
-- **Daily safety talk log** — record topic and duration of the daily SSOMA briefing (charla de seguridad)
-- **Weekly field notes** — free-text area for site supervisors to document weekly observations
-- **Weekly personnel movement log** — automatic tracking of new hires and terminations per ISO week
+Cuando cada sede registra la asistencia en papel o en hojas separadas, el cierre de semana obliga a reunir horarios, revisar faltas y volver a copiar la información para preparar pagos y reportes. Las observaciones de campo quedan dispersas y un cambio de tarifa puede dificultar la revisión de registros anteriores.
 
-### Reports & Export
-- **PDF export** — daily attendance report with full table (name, DNI, position, hours, overtime, status, observations)
-- **Excel export** — daily attendance and weekly payroll in actual XLSX format via SheetJS
-- **JSON backup/restore** — full data export and import for portability and disaster recovery
-- **Visual charts** — weekly bar chart of present vs. absent employees (Chart.js)
+Attendance Tracker reúne ese trabajo en un mismo flujo: **registrar, revisar y exportar**. Está orientado al control operativo de cuadrillas y a la documentación diaria de actividades SSOMA.
 
-### PWA / Offline
-- **Service Worker** — caches the application and report libraries after the first online preparation
-- **Installable** — add to home screen on Android/iOS as a standalone app
-- **Local persistence** — data stored in IndexedDB (via custom abstraction) or a user-linked filesystem folder via the File System Access API
-- **No backend required** — 100% client-side, zero server costs
+## La solución
 
----
+**Una sede, una fecha y toda la información necesaria para revisar la jornada.** El supervisor administra el personal, registra entradas y salidas, anota observaciones y documenta la charla de seguridad. El sistema calcula las horas y reúne los registros en un resumen semanal y una planilla referencial.
 
-## 🛠 Tech Stack
+| Necesidad del equipo | Cómo lo resuelve el sistema | Beneficio para la operación |
+| --- | --- | --- |
+| Separar el personal y los registros de varias obras | Gestión de trabajadores y asistencia por sede | Consultar cada frente de trabajo sin mezclar información |
+| Revisar horas sin repetir cálculos manuales | Cálculo por minuto, descanso según el horario y jornada configurable | Usar un criterio consistente para horas trabajadas, extra y faltantes |
+| Detectar incidencias antes del cierre | Resumen semanal y revisión de tardanzas o jornadas incompletas | Identificar qué registros necesitan una decisión del supervisor |
+| Preparar pagos con antecedentes claros | Tarifa histórica por registro y descuentos con motivo | Conservar la base del cálculo aunque cambien las tarifas actuales |
+| Entregar información fuera de la aplicación | Reportes de asistencia y planilla en Excel y PDF | Compartir archivos editables o preparados para impresión |
+| Trabajar con conexión intermitente | Almacenamiento local y caché después del primer acceso en línea | Continuar el registro desde el mismo dispositivo sin conexión |
 
-| Layer | Technology |
-|---|---|
-| Structure | Semantic HTML5 |
-| Styling | Tailwind CSS (CDN) + custom CSS |
-| Logic | Vanilla JavaScript (ES Modules) |
-| Charts | Chart.js |
-| PDF export | jsPDF + jsPDF-AutoTable |
-| Excel export | SheetJS (xlsx) |
-| Storage | IndexedDB + File System Access API |
-| Offline | Service Worker (Cache API) |
-| Distribution | GitHub Pages |
+## Explorar el sistema
 
-**No frameworks. No build tools. No npm install.** Open `index.html` and it works.
+La [demo pública](https://enybyy.github.io/attendance-tracker-pwa/) comienza con **3 sedes y 34 trabajadores ficticios**, con un historial de ejemplo para recorrer el flujo completo.
 
----
+1. Cambia de sede con las flechas del encabezado y elige una fecha del reporte.
+2. Revisa la asistencia, los horarios y las observaciones del día.
+3. Baja al resumen semanal y a la planilla; abre una incidencia para revisar su tratamiento.
+4. Exporta un reporte. Usa **Reiniciar demo** para recuperar los ejemplos o **Empezar vacío** para iniciar tus propios registros.
 
-## 📁 Project Structure
+> Cada navegador mantiene sus propios datos. Los cambios que hagas en la demo no modifican la información de otros visitantes. Reiniciar los ejemplos reemplaza los datos de ese navegador: exporta un respaldo si necesitas conservarlos.
 
-```
-attendance-tracker-pwa/
-├── index.html                  # Single-page application shell
-├── sw.js                       # Service Worker (offline caching)
-├── manifest.json               # PWA manifest
-├── storage-simple.js           # Storage abstraction (IndexedDB / filesystem)
-├── assets/
-│   ├── css/
-│   │   └── app.css             # Custom styles and animations
-│   └── js/
-│       ├── app.js              # Main application controller (~6500 lines)
-│       ├── demo-data.js        # Seeded demo dataset generator (PRNG-based)
-│       └── modules/
-│           ├── charts.js       # Chart.js wrappers
-│           ├── config.js       # Business rules and validation logic
-│           ├── employees.js    # Employee CRUD utilities
-│           ├── hours.js        # Hour calculation engine
-│           ├── index.js        # Module barrel
-│           ├── locations.js    # Multi-site management utilities
-│           ├── pdf-export.js   # PDF generation logic
-│           ├── reports.js      # Report data builders
-│           ├── ui.js           # DOM rendering utilities
-│           └── utils.js        # Date, time, and format helpers
-```
+<details>
+<summary><strong>Ver el resumen semanal: asistencia, horas extra y horas faltantes</strong></summary>
 
----
+El gráfico reúne presentes y ausentes por día. Los listados permiten localizar los trabajadores con incidencias y consultar las diferencias de horas registradas durante la semana.
 
-## 🚀 Getting Started
+![Resumen semanal de asistencia con datos ficticios](docs/screenshots/resumen-semanal.png)
 
-### Option 1 — Serve locally with Node.js
+</details>
+
+<details>
+<summary><strong>Ver la planilla: días registrados, tarifas y modalidades de pago</strong></summary>
+
+La planilla agrupa los días trabajados y los importes por empleado. Permite revisar incidencias de jornada, registrar descuentos justificados y separar los totales por modalidad de pago.
+
+![Planilla referencial semanal con datos ficticios](docs/screenshots/planilla.png)
+
+Los reportes utilizan la fecha de corte seleccionada. Las horas extra se muestran para revisión; no generan un pago adicional automático. Esta planilla sirve como control operativo y no reemplaza un sistema de nómina laboral.
+
+</details>
+
+## Reportes listos para compartir
+
+Estos archivos se exportaron directamente desde la aplicación con los datos ficticios de la demo. Corresponden al **1 de octubre de 2026**, dentro de la semana del 28 de septiembre al 4 de octubre; los registros posteriores al corte no se incluyen en el cálculo de la planilla.
+
+| Documento | Excel editable | PDF para consulta e impresión |
+| --- | --- | --- |
+| Asistencia | [Descargar reporte diario](docs/reports/asistencia-demo.xlsx?raw=true) | [Ver reporte semanal](docs/reports/asistencia-demo.pdf) |
+| Planilla referencial | [Descargar planilla](docs/reports/planilla-demo.xlsx?raw=true) | [Ver planilla](docs/reports/planilla-demo.pdf) |
+
+<details>
+<summary><strong>Ver una página del PDF de planilla</strong></summary>
+
+![Página completa del PDF de planilla exportado por el sistema](docs/screenshots/reporte-planilla.png)
+
+[Abrir el PDF original](docs/reports/planilla-demo.pdf) · [Descargar el Excel de la misma planilla](docs/reports/planilla-demo.xlsx?raw=true)
+
+</details>
+
+## Cómo está construido
+
+El proyecto combina una interfaz en JavaScript con reglas de asistencia, persistencia local y generación de documentos. El flujo permite conservar observaciones e historial, validar los respaldos antes de importarlos y mantener coherencia entre la planilla visible y sus exportaciones.
+
+| Área | Tecnología |
+| --- | --- |
+| Interfaz | HTML, Tailwind CSS y CSS propio |
+| Lógica | JavaScript con módulos ES |
+| Gráficos | Chart.js |
+| Documentos | SheetJS para XLSX; jsPDF, AutoTable y html2canvas para PDF |
+| Datos | IndexedDB y respaldo local de contingencia |
+| Instalación y uso sin conexión | Manifest PWA y Service Worker |
+| Demo | GitHub Pages |
+| Verificación | Pruebas de reglas con Node.js y pruebas de navegador con Playwright |
+
+<details>
+<summary><strong>Ejecutar el proyecto en tu equipo</strong></summary>
+
+Necesitas Node.js. No hay compilación ni instalación de dependencias para abrir la aplicación desde el servidor local:
+
 ```bash
-# Clone the repository
 git clone https://github.com/Enybyy/attendance-tracker-pwa.git
-
-# Start the local server
 cd attendance-tracker-pwa
 npm start
 ```
-Then open `http://127.0.0.1:4173`. Serve the files through HTTP or HTTPS; opening `index.html` as a local file does not support the calculation modules or Service Worker.
 
-### Option 2 — Serve locally (recommended for Service Worker)
-```bash
-# Using Python
-python -m http.server 8080
+Abre **http://127.0.0.1:4173**. Utiliza el servidor HTTP en lugar de abrir `index.html` directamente, porque la aplicación carga módulos ES y un Service Worker.
 
-```
-Then open `http://localhost:8080`.
-
-### Demo mode
-The app loads a realistic seeded dataset automatically on first launch (3 construction sites, 34 workers, ~7 weeks of attendance history). To start with an empty system, append `?demo=off` to the URL.
-
-Saved records are never automatically replaced when the sample dataset changes. Use the existing **Reiniciar demo**, **Empezar vacío**, or **Cargar datos de muestra** controls for an explicit reset.
-
-### Calculation and data rules
-
-The original interface is retained. Net worked time deducts only the actual overlap with the 12:00–13:00 pause on weekdays. Saturday and overnight shifts are exempt from that pause. The configured daily hours determine overtime and incomplete-shift incidents.
-
-Payroll uses completed attendance up to the selected date, capped at today. Records keep their original daily rate. Reviewed discounts are capped at that recorded rate and are included in both XLSX and PDF exports. Absences and observation-only records do not count as worked days. Overtime is reported without automatic extra pay; this is an operational payroll summary.
-
-Backups are validated before replacement. Single-site legacy backups are imported once. Employee identities and observations are preserved during migration, and personnel with historical attendance must be deactivated instead of deleted. The original name-based interface requires distinct employee names within each site.
-
-### Verification
+Para ejecutar las verificaciones de desarrollo:
 
 ```bash
 npm ci
@@ -136,97 +124,30 @@ npm test
 npm run test:e2e
 ```
 
-Browser tests use installed Chrome by default. For bundled Chromium, run `npx playwright install chromium` and set `BROWSER_CHANNEL=chromium`. Tests cover payroll/XLSX consistency, record editing, historical rates, bulk registration, invalid backups, local fallback persistence, explicit resets and offline reload/export.
+Las pruebas de navegador utilizan Google Chrome instalado. Como alternativa, instala Chromium con `npx playwright install chromium` y ejecuta las pruebas con la variable de entorno `BROWSER_CHANNEL=chromium`.
 
----
+</details>
 
-## 📸 Screenshots
+<details>
+<summary><strong>Datos, respaldos y alcance de la aplicación</strong></summary>
 
-> Live demo available at **[enybyy.github.io/attendance-tracker-pwa](https://enybyy.github.io/attendance-tracker-pwa)**
+- La aplicación funciona sin backend, cuentas de usuario ni sincronización entre dispositivos. Guarda la información en el navegador; borrar sus datos también puede borrar los registros.
+- El respaldo JSON permite exportar y recuperar la información. La vinculación opcional de una carpeta depende del soporte del navegador para File System Access API, principalmente Chrome y Edge.
+- El uso sin conexión requiere una primera carga en línea para preparar la aplicación y sus bibliotecas. La opción de instalación PWA depende del navegador y del dispositivo.
+- Las bajas de personal conservan los registros anteriores. Los registros con historial no se eliminan junto con un empleado.
+- Los ejemplos y las capturas son demostrativos; no representan cifras de una empresa ni resultados comerciales medidos.
 
-| View | Description |
-|---|---|
-| Main dashboard | Daily attendance table with check-in/out controls |
-| Location switcher | Multi-site selector with inline add/edit |
-| Weekly payroll | Incident review panel with approve/discount actions |
-| PDF report | Auto-generated daily attendance sheet |
-| Employee roster | Full profile cards with status history |
-| SSOMA log | Safety talk and weekly field notes |
+</details>
 
----
+## Conversemos sobre tu proyecto
 
-## 🏗 Business Logic Highlights
+¿Tu equipo necesita dejar atrás los registros dispersos y convertirlos en un sistema de trabajo? Desarrollo herramientas para organizar procesos, automatizar tareas y generar reportes útiles para la operación.
 
-- **ISO week numbering** — all weekly views and payroll cycles follow ISO 8601
-- **Lunch deduction rule** — automatically deducted if the work window crosses 12:00–13:00 on Mon–Fri; not applied on Saturdays (half-day)
-- **Overtime detection** — calculated beyond the configured expected hours per day of week
-- **Incident flagging** — an attendance record is flagged if check-in is more than 15 minutes late or total hours are below the daily threshold
-- **Employee lifecycle** — `statusEvents` array tracks active/inactive states over time, so historical data remains accurate after a termination
-- **PRNG dataset seeder** — demo data uses a seeded pseudo-random number generator to produce the same dataset on every device and reload
+Cuéntame qué registran hoy, quién utiliza la información y qué necesitan obtener al final del día o de la semana.
 
----
+<a href="https://www.upwork.com/freelancers/~01471ca462b236e8e5"><img src="docs/media/contacto.svg" width="360" alt="Hablemos de tu proyecto en Upwork"></a>
 
-## 🔧 Configuration
+**Eliud Rojas Mendoza · Enybyy**<br>
+[GitHub](https://github.com/Enybyy) · [LinkedIn](https://www.linkedin.com/in/eliud-rojas-mendoza-414652212/) · [Upwork](https://www.upwork.com/freelancers/~01471ca462b236e8e5)
 
-Weekly expected hours per day of week are configurable per site:
-
-```js
-weeklyHoursConfig: {
-  0: 0,  // Sunday (no work)
-  1: 9,  // Monday
-  2: 9,  // Tuesday
-  3: 9,  // Wednesday
-  4: 9,  // Thursday
-  5: 9,  // Friday
-  6: 5   // Saturday (half day)
-}
-```
-
----
-
-## 📦 Data Model
-
-All data is serialized as a single JSON object (`appData`) with the following top-level shape:
-
-```js
-{
-  locations: ["Site A", "Site B"],        // Ordered list of site names
-  currentLocationIndex: 0,
-  disabledLocations: [],
-  locationDetails: { "Site A": { address: "..." } },
-  data: {
-    "Site A": {
-      employees: [ /* Employee objects */ ],
-      attendance: { "YYYY-MM-DD": [ /* AttendanceRecord[] */ ] },
-      weeklyHoursConfig: { /* day -> hours */ },
-      dailyTopics: { "YYYY-MM-DD": { topic, duration } },
-      weeklyNotes: { "YYYY-Www": "..." },
-      weeklyNotesLog: { "YYYY-Www": [ /* events */ ] },
-      payrollReviews: { "YYYY-MM-DD_Name": { status, amount, note } }
-    }
-  }
-}
-```
-
----
-
-## 🌐 Deployment
-
-The app is deployed to **GitHub Pages** directly from the `main` branch. No build step required.
-
-To deploy your own instance:
-1. Fork the repository
-2. Go to **Settings → Pages → Source: Deploy from branch → `main` / `root`**
-3. Your instance will be live at `https://<username>.github.io/attendance-tracker-pwa`
-
----
-
-## 📄 License
-
-MIT — free to use, modify, and distribute.
-
----
-
-<div align="center">
-  <sub>Built with vanilla JavaScript · No frameworks · Local data storage</sub>
-</div>
+Código disponible bajo [licencia MIT](LICENSE).
