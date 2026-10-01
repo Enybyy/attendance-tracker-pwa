@@ -2,7 +2,7 @@
 
 # Attendance Tracker PWA
 
-### Del registro de asistencia al cierre semanal de la obra.
+### Asistencia y registros semanales por sede.
 
 Control de personal por sede, revisión de incidencias y planilla referencial con reportes en Excel y PDF. Una aplicación web para supervisores de obra y equipos SSOMA, que funciona en el navegador y conserva los datos en el dispositivo.
 
@@ -10,34 +10,32 @@ Control de personal por sede, revisión de incidencias y planilla referencial co
 
 <p><a href="https://github.com/Enybyy"><img src="docs/media/github.svg" width="112" alt="GitHub de Eliud Rojas Mendoza"></a>
 <a href="https://www.linkedin.com/in/eliud-rojas-mendoza-414652212/"><img src="docs/media/linkedin.svg" width="112" alt="LinkedIn de Eliud Rojas Mendoza"></a>
-<a href="https://www.upwork.com/freelancers/~01471ca462b236e8e5"><img src="docs/media/upwork.svg" width="112" alt="Contactar a Eliud en Upwork"></a></p>
+<a href="https://www.upwork.com/freelancers/~01471ca462b236e8e5"><img src="docs/media/upwork.svg" width="112" alt="Perfil de Eliud en Upwork"></a></p>
 
 [![Registro diario de asistencia en la aplicación real](docs/screenshots/asistencia.png)](https://enybyy.github.io/attendance-tracker-pwa/)
 
 *Captura real del sistema. Los trabajadores, documentos, cuentas y montos de la demo son ficticios.*
 
-[El problema](#el-problema) · [La solución](#la-solución) · [Explorar el sistema](#explorar-el-sistema) · [Reportes](#reportes-listos-para-compartir) · [Contacto](#conversemos-sobre-tu-proyecto)
+[Acerca del proyecto](#acerca-del-proyecto) · [Demo y capturas](#explorar-el-sistema) · [Reportes](#reportes-listos-para-compartir) · [Tecnología](#cómo-está-construido)
 
 </div>
 
-## El problema
+## Acerca del proyecto
 
-Cuando cada sede registra la asistencia en papel o en hojas separadas, el cierre de semana obliga a reunir horarios, revisar faltas y volver a copiar la información para preparar pagos y reportes. Las observaciones de campo quedan dispersas y un cambio de tarifa puede dificultar la revisión de registros anteriores.
+Attendance Tracker acompaña el registro diario de personal en obras con varios frentes de trabajo. En cada sede reúne los horarios, las observaciones de campo y las charlas de seguridad, manteniendo un historial que se puede consultar durante la semana.
 
-Attendance Tracker reúne ese trabajo en un mismo flujo: **registrar, revisar y exportar**. Está orientado al control operativo de cuadrillas y a la documentación diaria de actividades SSOMA.
+El recorrido sigue la jornada del supervisor: seleccionar la sede, registrar la asistencia y revisar lo ocurrido. Al cierre, esa misma información da forma al resumen semanal y a la planilla referencial, sin volver a transcribir los registros para preparar los reportes.
 
-## La solución
+## En el día a día
 
-**Una sede, una fecha y toda la información necesaria para revisar la jornada.** El supervisor administra el personal, registra entradas y salidas, anota observaciones y documenta la charla de seguridad. El sistema calcula las horas y reúne los registros en un resumen semanal y una planilla referencial.
-
-| Necesidad del equipo | Cómo lo resuelve el sistema | Beneficio para la operación |
-| --- | --- | --- |
-| Separar el personal y los registros de varias obras | Gestión de trabajadores y asistencia por sede | Consultar cada frente de trabajo sin mezclar información |
-| Revisar horas sin repetir cálculos manuales | Cálculo por minuto, descanso según el horario y jornada configurable | Usar un criterio consistente para horas trabajadas, extra y faltantes |
-| Detectar incidencias antes del cierre | Resumen semanal y revisión de tardanzas o jornadas incompletas | Identificar qué registros necesitan una decisión del supervisor |
-| Preparar pagos con antecedentes claros | Tarifa histórica por registro y descuentos con motivo | Conservar la base del cálculo aunque cambien las tarifas actuales |
-| Entregar información fuera de la aplicación | Reportes de asistencia y planilla en Excel y PDF | Compartir archivos editables o preparados para impresión |
-| Trabajar con conexión intermitente | Almacenamiento local y caché después del primer acceso en línea | Continuar el registro desde el mismo dispositivo sin conexión |
+| Dentro de la aplicación | Detalle |
+| --- | --- |
+| Personal por sede | Cada obra conserva su lista de trabajadores, registros y movimientos de personal. |
+| Jornadas y horarios | Las entradas y salidas se calculan por minuto, con el descanso y la jornada configurada como referencia. |
+| Resumen semanal | Presentes, ausentes, horas extra y horas faltantes se reúnen en una vista para revisar la semana. |
+| Planilla referencial | Los registros conservan su tarifa histórica; las incidencias y los descuentos quedan asociados a su revisión. |
+| Archivos de trabajo | La asistencia y la planilla se exportan a Excel y PDF para continuar la revisión o compartirlas. |
+| Continuidad en campo | Después de la primera carga en línea, la aplicación puede seguir utilizándose sin conexión en el mismo dispositivo. |
 
 ## Explorar el sistema
 
@@ -139,15 +137,16 @@ Las pruebas de navegador utilizan Google Chrome instalado. Como alternativa, ins
 
 </details>
 
-## Conversemos sobre tu proyecto
+---
 
-¿Tu equipo necesita dejar atrás los registros dispersos y convertirlos en un sistema de trabajo? Desarrollo herramientas para organizar procesos, automatizar tareas y generar reportes útiles para la operación.
+<div align="center">
 
-Cuéntame qué registran hoy, quién utiliza la información y qué necesitan obtener al final del día o de la semana.
+**Eliud Rojas Mendoza · Enybyy**
 
-<a href="https://www.upwork.com/freelancers/~01471ca462b236e8e5"><img src="docs/media/contacto.svg" width="360" alt="Hablemos de tu proyecto en Upwork"></a>
+<p><a href="https://github.com/Enybyy"><img src="docs/media/github.svg" width="112" alt="GitHub de Eliud Rojas Mendoza"></a>
+<a href="https://www.linkedin.com/in/eliud-rojas-mendoza-414652212/"><img src="docs/media/linkedin.svg" width="112" alt="LinkedIn de Eliud Rojas Mendoza"></a>
+<a href="https://www.upwork.com/freelancers/~01471ca462b236e8e5"><img src="docs/media/upwork.svg" width="112" alt="Perfil de Eliud en Upwork"></a></p>
 
-**Eliud Rojas Mendoza · Enybyy**<br>
-[GitHub](https://github.com/Enybyy) · [LinkedIn](https://www.linkedin.com/in/eliud-rojas-mendoza-414652212/) · [Upwork](https://www.upwork.com/freelancers/~01471ca462b236e8e5)
+[Licencia MIT](LICENSE)
 
-Código disponible bajo [licencia MIT](LICENSE).
+</div>
