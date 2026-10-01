@@ -48,21 +48,19 @@ La [demo pública](https://enybyy.github.io/attendance-tracker-pwa/) comienza co
 
 > Cada navegador mantiene sus propios datos. Los cambios que hagas en la demo no modifican la información de otros visitantes. Reiniciar los ejemplos reemplaza los datos de ese navegador: exporta un respaldo si necesitas conservarlos.
 
-<summary><strong>Resumen semanal: asistencia, horas extra y horas faltantes</strong></summary>
+### Resumen semanal: asistencia, horas extra y horas faltantes
 
 El gráfico reúne presentes y ausentes por día. Los listados permiten localizar los trabajadores con incidencias y consultar las diferencias de horas registradas durante la semana.
 
 ![Resumen semanal de asistencia con datos ficticios](docs/screenshots/resumen-semanal.png)
 
-
-<summary><strong>Planilla: días registrados, tarifas y modalidades de pago</strong></summary>
+### Planilla: días registrados, tarifas y modalidades de pago
 
 La planilla agrupa los días trabajados y los importes por empleado. Permite revisar incidencias de jornada, registrar descuentos justificados y separar los totales por modalidad de pago.
 
 ![Planilla referencial semanal con datos ficticios](docs/screenshots/planilla.png)
 
 Los reportes utilizan la fecha de corte seleccionada. Las horas extra se muestran para revisión; no generan un pago adicional automático. Esta planilla sirve como control operativo y no reemplaza un sistema de nómina laboral.
-
 
 ## Reportes listos para compartir
 
@@ -73,14 +71,11 @@ Estos archivos se exportaron directamente desde la aplicación con los datos fic
 | Asistencia | [Descargar reporte diario](docs/reports/asistencia-demo.xlsx?raw=true) | [Ver reporte semanal](docs/reports/asistencia-demo.pdf) |
 | Planilla referencial | [Descargar planilla](docs/reports/planilla-demo.xlsx?raw=true) | [Ver planilla](docs/reports/planilla-demo.pdf) |
 
-<details>
-<summary><strong>Ver una página del PDF de planilla</strong></summary>
+### PDF de planilla
 
 ![Página completa del PDF de planilla exportado por el sistema](docs/screenshots/reporte-planilla.png)
 
 [Abrir el PDF original](docs/reports/planilla-demo.pdf) · [Descargar el Excel de la misma planilla](docs/reports/planilla-demo.xlsx?raw=true)
-
-</details>
 
 ## Cómo está construido
 
