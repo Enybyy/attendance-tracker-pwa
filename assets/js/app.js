@@ -1,4 +1,14 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  const logic = await import("./modules/legacy-logic.js");
+  const { escapeHTML } = await import("./modules/dates.js");
+  let backupListenersBound = false;
+  let locationListenersBound = false;
+  const invalidateReview = (date, name) => {
+    const reviews = appData.data[currentLocationName].payrollReviews || {};
+    delete reviews[date + "_" + name];
+  };
+  const validShift = (start, end, date) => logic.validDate(date) && date <= logic.today() &&
+    logic.validTime(start) && logic.validTime(end) && start !== end;
   // --- CONFIGURACIÓN DE SEDES ---
 
   let locations = [
@@ -191,6 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const formatStorageStatus = (info) => {
     if (!info || !info.type) return "Estado de almacenamiento: desconocido.";
+    if (info.warning) return info.warning;
 
     if (info.type === "filesystem") {
       return `Estado de almacenamiento: carpeta vinculada (${info.fileName}).`;
@@ -223,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
     linkStorageFolderBtn.addEventListener("click", async () => {
       if (!window.storage) return;
       try {
-        await storage.requestDirectoryAccess();
+        if (!await storage.requestDirectoryAccess()) return;
         await storage.save(appData);
         await refreshStorageStatus();
         alert(
@@ -361,16 +372,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let dailySort = { key: null, dir: "asc" };
 
-  const TIME_PATTERN = /^\d{2}:\d{2}$/;
-
   const isValidTime = (value) =>
-    typeof value === "string" && TIME_PATTERN.test(value);
+    logic.validTime(value);
 
   const isCompleteAttendanceRecord = (record) =>
     !!(
       record &&
       isValidTime(record.checkIn) &&
-      isValidTime(record.checkOut)
+      isValidTime(record.checkOut) && record.checkIn !== record.checkOut
     );
 
   // --- Utilidades generales ---
@@ -395,64 +404,37 @@ document.addEventListener("DOMContentLoaded", () => {
     URL.revokeObjectURL(url);
   };
 
-  const migrateImportedData = (raw) => {
-    // Soporte para backups antiguos (sin estructura por sedes)
-
-    if (raw && !raw.locations && (raw.employees || raw.attendance)) {
-      const wrapped = {
-        locations: locations,
-
-        currentLocationIndex: 0,
-
-        data: {},
-
-        locationDetails: {},
-      };
-
-      locations.forEach((loc) => {
-        wrapped.data[loc] = {
-          employees: Array.isArray(raw.employees) ? raw.employees : [],
-
-          attendance: raw.attendance || {},
-
-          weeklyHoursConfig: raw.weeklyHoursConfig || {
-            0: 0,
-            1: 9,
-            2: 9,
-            3: 9,
-            4: 9,
-            5: 9,
-            6: 5,
-          },
-
-          dailyTopics: {},
-
-          weeklyNotes: {},
-
-          weeklyNotesLog: {},
-        };
-
-        wrapped.locationDetails[loc] = { address: "" };
-      });
-
-      return wrapped;
-    }
-
-    return raw;
-  };
+  const migrateImportedData = (raw) => logic.normalizeLegacy(raw);
 
   const validateAppData = (data) => {
-    if (!data || typeof data !== "object") return false;
+    try { logic.normalizeLegacy(data); return true; }
+    catch { return false; }
+  };
 
-    if (!Array.isArray(data.locations)) return false;
-
-    if (!data.data || typeof data.data !== "object") return false;
-
-    const first = data.locations[0];
-
-    if (!first || !data.data[first]) return false;
-
-    return true;
+  const enableRecovery = (rawData = null) => {
+    if (storageStatusText) storageStatusText.textContent = "Los datos guardados necesitan revisión. Exporta o importa un respaldo desde Más Opciones.";
+    const allowed = new Set(["exportJsonBtn", "importJsonBtn", "toggleSidebarBtn", "closeSidebarBtn"]);
+    document.querySelectorAll("button").forEach(button => { if (!allowed.has(button.id)) button.disabled = true; });
+    document.querySelectorAll("input").forEach(input => { if (input !== importJsonInput) input.disabled = true; });
+    exportJsonBtn.onclick = async () => {
+      try {
+        const raw = rawData === null ? localStorage.getItem("appData") : JSON.stringify(rawData, null, 2);
+        if (raw === null) { alert("No se pudo recuperar el archivo desde el almacenamiento. No se modificaron los datos."); return; }
+        downloadFile("respaldo_para_revision.json", raw);
+      } catch (error) { alert("No se pudo descargar el respaldo: " + error.message); }
+    };
+    importJsonBtn.onclick = () => importJsonInput.click();
+    importJsonInput.onchange = async event => {
+      const file = event.target.files[0]; event.target.value = "";
+      if (!file) return;
+      try {
+        if (file.size > 10 * 1024 * 1024) throw new Error("El respaldo supera 10 MB.");
+        const candidate = migrateImportedData(JSON.parse(await file.text()));
+        if (!confirm("¿Reemplazar los datos guardados con este respaldo validado?")) return;
+        await storage.save(candidate);
+        window.location.reload();
+      } catch (error) { alert("No se pudo importar: " + error.message); }
+    };
   };
 
   // Asegura que existan todas las sedes definidas en appData.locations dentro de appData.data
@@ -486,6 +468,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    if (!locationListenersBound) {
+    locationListenersBound = true;
     // Edición de sede existente
 
     if (editLocationToggle && editLocationInline) {
@@ -536,8 +520,9 @@ document.addEventListener("DOMContentLoaded", () => {
           alert("Ingresa el nombre corto.");
           return;
         }
+        if (['__proto__', 'constructor', 'prototype'].includes(newName.toLowerCase())) { alert("Nombre de sede no válido."); return; }
 
-        if (newName !== oldName && appData.locations.includes(newName)) {
+        if (newName !== oldName && appData.locations.some(name => name.toLowerCase() === newName.toLowerCase())) {
           alert("Ya existe una losa con ese nombre.");
           return;
         }
@@ -578,6 +563,7 @@ document.addEventListener("DOMContentLoaded", () => {
           // actualizar nombre en lista
 
           appData.locations[idx] = newName;
+          appData.disabledLocations = (appData.disabledLocations || []).map(name => name === oldName ? newName : name);
 
           locations = appData.locations;
 
@@ -608,6 +594,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    }
     if (!appData.data || typeof appData.data !== "object")
       appData.data = {};
 
@@ -705,7 +692,7 @@ document.addEventListener("DOMContentLoaded", () => {
         (locData.dailyTopics || {})[date]
       );
 
-      const expectedHours = getExpectedHoursForDate(date);
+      const expectedHours = Number(locData.weeklyHoursConfig?.[new Date(date + "T12:00:00").getDay()] ?? 9);
 
       const active = (() => {
         const prevEmployees = employees; // guardar ref
@@ -761,7 +748,8 @@ document.addEventListener("DOMContentLoaded", () => {
           const { total, overtime } = calculateHours(
             rec.checkIn,
             rec.checkOut,
-            date
+            date,
+            locData
           );
 
           presentCount++;
@@ -877,10 +865,11 @@ document.addEventListener("DOMContentLoaded", () => {
           const activeSet = new Set(activeEmps.map((e) => e.name));
 
           const present = dayList.filter((r) =>
-            activeSet.has(r.name)
+            activeSet.has(r.name) && isCompleteAttendanceRecord(r)
           ).length;
 
-          const absent = Math.max(0, activeEmps.length - present);
+          const expected = Number(locData.weeklyHoursConfig?.[new Date(d + "T12:00:00").getDay()] ?? 9);
+          const absent = expected > 0 ? Math.max(0, activeEmps.length - present) : 0;
 
           weekly[wk].days.push({
             date: d,
@@ -1065,7 +1054,7 @@ document.addEventListener("DOMContentLoaded", () => {
           // Contar presentes
 
           const presentCount = validAttendance.filter((r) =>
-            activeSet.has(r.name)
+            activeSet.has(r.name) && isCompleteAttendanceRecord(r)
           ).length;
 
           // Agregar datos numéricos de personal activo
@@ -1091,7 +1080,8 @@ document.addEventListener("DOMContentLoaded", () => {
               const { total, overtime } = calculateHours(
                 rec.checkIn,
                 rec.checkOut,
-                dateStr
+                dateStr,
+                locData
               );
 
               monthlyData[monthKey].asistencias.push({
@@ -1182,7 +1172,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Helpers de fecha y estado histórico de empleados ---
 
-  const toYMD = (d) => {
+    const toYMD = (d) => {
     const yyyy = d.getFullYear();
 
     const mm = String(d.getMonth() + 1).padStart(2, "0");
@@ -1263,6 +1253,8 @@ document.addEventListener("DOMContentLoaded", () => {
       (loc.employees || []).forEach((e) => normalizeStatusEvents(e));
     });
 
+    if (backupListenersBound) return;
+    backupListenersBound = true;
     // Exportar/Importar JSON (respaldo)
 
     if (exportJsonBtn)
@@ -1309,7 +1301,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return sum + (appData.data[loc].employees ? appData.data[loc].employees.length : 0);
               }, 0),
               totalAttendanceRecords: Object.keys(appData.data || {}).reduce((sum, loc) => {
-                return sum + Object.keys(appData.data[loc].attendance || {}).length;
+                return sum + Object.values(appData.data[loc].attendance || {}).reduce((count, records) => count + records.length, 0);
               }, 0),
               locationsWithData: Object.keys(appData.data || {}).length
             }
@@ -1354,13 +1346,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const file = ev.target.files && ev.target.files[0];
 
         if (!file) return;
+        if (file.size > 10 * 1024 * 1024) { alert("El respaldo supera 10 MB."); ev.target.value = ""; return; }
 
         const reader = new FileReader();
 
         reader.onerror = () =>
           alert("Error leyendo archivo seleccionado.");
 
-        reader.onload = () => {
+        reader.onload = async () => {
           try {
             const parsed = JSON.parse(reader.result);
 
@@ -1403,6 +1396,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!confirm(confirmMessage)) return;
 
+            await storage.save(migrated);
             appData = migrated;
 
             // Asegurar estructura de status por empleado
@@ -1475,7 +1469,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-          appData = window.DemoData.build();
+          appData = logic.normalizeLegacy(window.DemoData.build());
           window.DemoData.markSeeded();
 
           ensureLocationsConsistency();
@@ -1644,12 +1638,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const saveData = async () => {
     try {
-      await storage.save(appData);
+      const result = await storage.save(appData);
+      if (result?.fileWarning) alert(result.fileWarning);
+      await refreshStorageStatus();
+      return true;
     } catch (error) {
       console.error("Error al guardar datos:", error);
+      if (storageStatusText) storageStatusText.textContent = "Error: los últimos cambios no se guardaron.";
+      alert("No se pudieron guardar los cambios. Exporta un respaldo antes de cerrar. " + error.message);
+      return false;
     }
-
-    await refreshStorageStatus();
   };
 
   const saveEmployees = () => {
@@ -1741,6 +1739,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Modal dinámico: Registros generales de la semana ---
 
+  let weeklyLogDraft = [];
+  const readWeeklyLogRows = () => Array.from(weeklyLogTableBodyEl.querySelectorAll('tr')).map(tr => {
+    const get = field => tr.querySelector('[data-field="' + field + '"]')?.value.trim() || '';
+    return { date:get('date'), event:get('event'), name:get('name'), dni:get('dni'), position:get('position') };
+  });
   let weeklyLogModalEl = null;
 
   let weeklyLogTableBodyEl = null;
@@ -1867,18 +1870,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const wk = currentWeekKey();
 
-    const list =
-      ((appData.data[currentLocationName] || {}).weeklyNotesLog || {})[
-      wk
-      ] || [];
+    const list = weeklyLogDraft;
 
     weeklyLogTableBodyEl.innerHTML = "";
 
     list
 
       .slice()
-
-      .sort((a, b) => (a.date || "").localeCompare(b.date || ""))
 
       .forEach((ev, idx) => {
         const tr = document.createElement("tr");
@@ -1887,20 +1885,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         tr.innerHTML = `
 
-                    <td class="px-2 py-1"><input type="date" class="p-1 rounded-md bg-slate-800 border border-slate-600" value="${ev.date || ""
-          }" data-field="date"></td>
+                    <td class="px-2 py-1"><input type="date" class="p-1 rounded-md bg-slate-800 border border-slate-600" value="${escapeHTML(ev.date || "")}" data-field="date"></td>
 
-                    <td class="px-2 py-1"><input type="text" class="w-full p-1 rounded-md bg-slate-800 border border-slate-600" value="${ev.event || ""
-          }" placeholder="Evento (Nuevo personal / Baja / Reactivación)" data-field="event"></td>
+                    <td class="px-2 py-1"><input type="text" class="w-full p-1 rounded-md bg-slate-800 border border-slate-600" value="${escapeHTML(ev.event || "")}" placeholder="Evento (Nuevo personal / Baja / Reactivación)" data-field="event"></td>
 
-                    <td class="px-2 py-1"><input type="text" class="w-full p-1 rounded-md bg-slate-800 border border-slate-600" value="${ev.name || ""
-          }" data-field="name"></td>
+                    <td class="px-2 py-1"><input type="text" class="w-full p-1 rounded-md bg-slate-800 border border-slate-600" value="${escapeHTML(ev.name || "")}" data-field="name"></td>
 
-                    <td class="px-2 py-1"><input type="text" class="w-full p-1 rounded-md bg-slate-800 border border-slate-600" value="${ev.dni || ""
-          }" data-field="dni"></td>
+                    <td class="px-2 py-1"><input type="text" class="w-full p-1 rounded-md bg-slate-800 border border-slate-600" value="${escapeHTML(ev.dni || "")}" data-field="dni"></td>
 
-                    <td class="px-2 py-1"><input type="text" class="w-full p-1 rounded-md bg-slate-800 border border-slate-600" value="${ev.position || ""
-          }" data-field="position"></td>
+                    <td class="px-2 py-1"><input type="text" class="w-full p-1 rounded-md bg-slate-800 border border-slate-600" value="${escapeHTML(ev.position || "")}" data-field="position"></td>
 
                     <td class="px-2 py-1 text-right"><button class="btn btn-danger px-2 py-1 rounded-md" data-action="delete" data-index="${idx}">Eliminar</button></td>
 
@@ -1909,55 +1902,18 @@ document.addEventListener("DOMContentLoaded", () => {
         weeklyLogTableBodyEl.appendChild(tr);
       });
 
-    weeklyLogTableBodyEl.addEventListener(
-      "click",
-      (e) => {
-        const btn = e.target.closest('button[data-action="delete"]');
-
-        if (!btn) return;
-
-        const idx = Number(btn.getAttribute("data-index"));
-
-        const wk2 = currentWeekKey();
-
-        const base =
-          appData.data[currentLocationName].weeklyNotesLog[wk2] || [];
-
-        base.splice(idx, 1);
-
-        appData.data[currentLocationName].weeklyNotesLog[wk2] = base;
-
-        saveData();
-
-        renderWeeklyLogRows();
-      },
-      { once: true }
-    );
+    weeklyLogTableBodyEl.onclick = event => {
+      const button = event.target.closest('button[data-action="delete"]');
+      if (!button) return;
+      weeklyLogDraft = readWeeklyLogRows();
+      weeklyLogDraft.splice(Number(button.dataset.index), 1);
+      renderWeeklyLogRows();
+    };
   };
 
   const addWeeklyLogRow = () => {
-    const wk = currentWeekKey();
-
-    if (!appData.data[currentLocationName].weeklyNotesLog)
-      appData.data[currentLocationName].weeklyNotesLog = {};
-
-    const list =
-      appData.data[currentLocationName].weeklyNotesLog[wk] || [];
-
-    const today = reportDateInput.value || toYMD(new Date());
-
-    list.push({
-      date: today,
-      event: "Nuevo personal",
-      name: "",
-      dni: "",
-      position: "",
-    });
-
-    appData.data[currentLocationName].weeklyNotesLog[wk] = list;
-
-    saveData();
-
+    weeklyLogDraft = readWeeklyLogRows();
+    weeklyLogDraft.push({ date:reportDateInput.value || logic.today(), event:"Nuevo personal", name:"", dni:"", position:"" });
     renderWeeklyLogRows();
   };
 
@@ -1974,42 +1930,28 @@ document.addEventListener("DOMContentLoaded", () => {
       days[0]
     )} a ${toDMY(days[5])}`;
 
+    weeklyLogDraft = structuredClone(appData.data[currentLocationName].weeklyNotesLog?.[wk] || []).sort((a,b) => a.date.localeCompare(b.date));
     weeklyLogModalEl.classList.remove("hidden");
 
     renderWeeklyLogRows();
   };
 
-  const saveWeeklyLogChanges = () => {
-    const wk = currentWeekKey();
-
-    if (!weeklyLogTableBodyEl) return;
-
-    const rows = Array.from(weeklyLogTableBodyEl.querySelectorAll("tr"));
-
-    const updated = rows
-      .map((tr) => {
-        const get = (f) =>
-          tr.querySelector(`[data-field="${f}"]`)?.value?.trim() || "";
-
-        return {
-          date: get("date"),
-          event: get("event"),
-          name: get("name"),
-          dni: get("dni"),
-          position: get("position"),
-        };
-      })
-      .filter((ev) => ev.date && ev.event && ev.name);
-
-    if (!appData.data[currentLocationName].weeklyNotesLog)
-      appData.data[currentLocationName].weeklyNotesLog = {};
-
-    appData.data[currentLocationName].weeklyNotesLog[wk] = updated;
-
-    saveData();
-
+  const saveWeeklyLogChanges = async () => {
+    const week = currentWeekKey();
+    const updated = readWeeklyLogRows();
+    if (updated.some(entry => !logic.validDate(entry.date) || entry.date > logic.today() || !entry.name || !entry.event)) {
+      alert("Completa fecha válida, evento y nombre en cada movimiento."); return;
+    }
+    const location = appData.data[currentLocationName];
+    const previous = structuredClone(location.weeklyNotesLog || {});
+    location.weeklyNotesLog ||= {};
+    location.weeklyNotesLog[week] = [];
+    for (const entry of updated) {
+      const targetWeek = getWeekKeyFromDateStr(entry.date);
+      (location.weeklyNotesLog[targetWeek] ||= []).push(entry);
+    }
+    if (!await saveData()) { location.weeklyNotesLog = previous; return; }
     alert("Cambios guardados.");
-
     weeklyLogModalEl.classList.add("hidden");
   };
 
@@ -2103,9 +2045,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <div class="flex flex-col">
 
-                        <span class="text-sm font-medium">${emp.name}</span>
+                        <span class="text-sm font-medium">${escapeHTML(emp.name)}</span>
 
-                        <span class="text-xs text-slate-400">${emp.dni} - ${emp.position}</span>
+                        <span class="text-xs text-slate-400">${escapeHTML(emp.dni)} - ${escapeHTML(emp.position)}</span>
 
                     </div>
 
@@ -2281,12 +2223,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const position = employeePositionInput.value.trim();
 
     if (name && dni && position) {
+      if (employees.some(emp => emp.name.toLocaleLowerCase('es') === name.toLocaleLowerCase('es'))) {
+        alert("Ya existe ese nombre en esta sede. Usa un nombre que permita distinguir a cada persona."); return;
+      }
+      if (!/^[a-zA-Z0-9-]{6,15}$/.test(dni)) { alert("Revisa el documento de identidad."); return; }
       if (!employees.some((emp) => emp.dni === dni)) {
         // Activar al empleado desde la fecha efectiva (fecha del reporte o hoy)
 
         const effDate = reportDateInput.value || toYMD(new Date());
 
         employees.push({
+          id: crypto.randomUUID(),
           name,
           dni,
           position,
@@ -2339,6 +2286,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (action === "delete") {
       const toDelete = employees[index];
+      if (Object.values(attendance).some(records => records.some(record => record.name === toDelete.name))) {
+        alert("Este empleado tiene asistencia histórica. Deshabilítalo para conservar sus registros."); return;
+      }
+      if (!confirm("¿Eliminar a " + toDelete.name + "?")) return;
 
       employees.splice(index, 1);
 
@@ -2366,8 +2317,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const makeActive = action === "activate";
 
       const msg = makeActive
-        ? `¿Reactivar a ${emp.name} desde ${effDate}?`
-        : `¿Dar de baja a ${emp.name} desde ${effDate}?`;
+        ? `¿Reactivar a ${escapeHTML(emp.name)} desde ${effDate}?`
+        : `¿Dar de baja a ${escapeHTML(emp.name)} desde ${effDate}?`;
 
       if (!confirm(msg)) return;
 
@@ -2468,6 +2419,13 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    if (employees.some((emp, i) => i !== editingEmployeeIndex && emp.name.toLocaleLowerCase('es') === name.toLocaleLowerCase('es'))) {
+      alert("Ya existe ese nombre en esta sede."); return;
+    }
+    const newRate = Number(editEmployeeTarifa?.value || 0);
+    if (!/^[a-zA-Z0-9-]{6,15}$/.test(dni) || !Number.isFinite(newRate) || newRate < 0 || newRate > 100000) {
+      alert("Revisa el documento y la tarifa diaria."); return;
+    }
     // Actualizar empleado
 
     const oldName = previousEmployeeName;
@@ -2478,6 +2436,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ];
 
     employees[editingEmployeeIndex] = {
+      ...employees[editingEmployeeIndex],
       name,
       dni,
       position,
@@ -2519,6 +2478,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
+      const reviews = appData.data[currentLocationName].payrollReviews || {};
+      for (const key of Object.keys(reviews)) {
+        if (key.slice(11) === oldName) {
+          reviews[key.slice(0, 11) + name] = reviews[key]; delete reviews[key];
+        }
+      }
       saveAttendance();
     }
 
@@ -2561,6 +2526,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    if (!validShift(checkIn, checkOut, date)) { alert("Revisa la fecha y las horas. Entrada y salida deben ser distintas."); return; }
+    if (checkOut < checkIn && !confirm("La salida corresponde al día siguiente. ¿Registrar este turno nocturno?")) return;
     const name = selectedEmployeeForAttendance.name;
 
     if (!attendance[date]) attendance[date] = [];
@@ -2572,7 +2539,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (existingRecordIndex > -1) {
       const previousRecord = attendance[date][existingRecordIndex] || {};
 
-      const updatedRecord = { name, checkIn, checkOut };
+      const updatedRecord = { ...previousRecord, name, checkIn, checkOut, type: "attendance", dailyRate: previousRecord.dailyRate ?? (Number(selectedEmployeeForAttendance.tarifaDiaria) || 0) };
+      delete updatedRecord.observationOnly;
 
       if (previousRecord.observation) {
         updatedRecord.observation = previousRecord.observation;
@@ -2580,9 +2548,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       attendance[date][existingRecordIndex] = updatedRecord;
     } else {
-      attendance[date].push({ name, checkIn, checkOut });
+      attendance[date].push({ name, checkIn, checkOut, employeeId: selectedEmployeeForAttendance.id, dailyRate: Number(selectedEmployeeForAttendance.tarifaDiaria) || 0 });
     }
 
+    invalidateReview(date, name);
     saveAttendance();
 
     renderAllReports();
@@ -2625,12 +2594,12 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    if (!validShift(checkIn, checkOut, date)) { alert("Revisa la fecha y las horas de la jornada."); return; }
+    if (checkOut < checkIn && !confirm("La salida corresponde al día siguiente. ¿Aplicar turno nocturno al grupo?")) return;
     const dayList = attendance[date] || [];
 
     const registered = new Set(
       dayList
-
-        .filter((record) => isCompleteAttendanceRecord(record))
 
         .map((r) => r.name)
     );
@@ -2654,7 +2623,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!attendance[date]) attendance[date] = dayList; // asegurar referencia
 
     toAdd.forEach((emp) => {
-      dayList.push({ name: emp.name, checkIn, checkOut });
+      dayList.push({ name: emp.name, checkIn, checkOut, employeeId: emp.id, dailyRate: Number(emp.tarifaDiaria) || 0 });
     });
 
     attendance[date] = dayList;
@@ -2701,6 +2670,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Borrar registros del día
 
+      for (const record of attendance[date] || []) invalidateReview(date, record.name);
       attendance[date] = [];
 
       saveAttendance();
@@ -2798,6 +2768,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const idx = dayList.findIndex((r) => r.name === name);
 
       if (idx > -1) {
+        invalidateReview(date, name);
         dayList.splice(idx, 1);
 
         attendance[date] = dayList;
@@ -2859,22 +2830,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const outTime = editCheckOutTimeInput.value;
 
-    if (!inTime || !outTime) {
+    if (!validShift(inTime, outTime, editingAttendanceDate)) {
       alert("Completa hora de entrada y salida.");
       return;
     }
 
+    if (outTime < inTime && !confirm("La salida corresponde al día siguiente. ¿Guardar turno nocturno?")) return;
     const list = attendance[editingAttendanceDate] || [];
 
     const idx = list.findIndex((r) => r.name === editingAttendanceName);
 
     if (idx > -1) {
       list[idx] = {
+        ...list[idx],
+        type: "attendance",
+        observationOnly: false,
         name: editingAttendanceName,
         checkIn: inTime,
         checkOut: outTime,
       };
 
+      invalidateReview(editingAttendanceDate, editingAttendanceName);
       attendance[editingAttendanceDate] = list;
 
       saveAttendance();
@@ -2893,82 +2869,11 @@ document.addEventListener("DOMContentLoaded", () => {
     renderDailyReport();
 
     renderWeeklyReport();
+    renderPayroll();
   };
 
-  const calculateHours = (start, end, dateStr) => {
-    if (!isValidTime(start) || !isValidTime(end)) {
-      return {
-        total: 0,
-        overtime: 0,
-        lunchDeducted: false,
-        lunchMinutes: 0,
-      };
-    }
-
-    const startTime = new Date(`1970-01-01T${start}:00`);
-
-    let endTime = new Date(`1970-01-01T${end}:00`);
-
-    let diffHrs = (endTime - startTime) / (1000 * 60 * 60);
-
-    // Manejo básico de cruce de medianoche
-
-    const crossesMidnight = diffHrs < 0;
-
-    if (crossesMidnight) {
-      endTime = new Date(endTime.getTime() + 24 * 60 * 60 * 1000);
-
-      diffHrs = (endTime - startTime) / (1000 * 60 * 60);
-    }
-
-    // Determinar si es sábado para no descontar almuerzo
-
-    let isSaturday = false;
-
-    if (dateStr) {
-      const day = new Date(dateStr + "T00:00:00").getDay(); // 6 = Sábado
-
-      isSaturday = day === 6;
-    }
-
-    // Descontar hora de almuerzo (12:00 - 13:00) solo si no cruza medianoche y no es sábado
-
-    let lunchMinutes = 0;
-
-    let lunchDeducted = false;
-
-    if (!crossesMidnight && !isSaturday) {
-      const lunchStart = new Date("1970-01-01T12:00:00");
-
-      const lunchEnd = new Date("1970-01-01T13:00:00");
-
-      const overlapStart = Math.max(
-        startTime.getTime(),
-        lunchStart.getTime()
-      );
-
-      const overlapEnd = Math.min(endTime.getTime(), lunchEnd.getTime());
-
-      const overlap = Math.max(0, overlapEnd - overlapStart);
-
-      lunchMinutes = overlap / (1000 * 60);
-
-      lunchDeducted = lunchMinutes > 0;
-    }
-
-    const totalHours = parseFloat(
-      ((diffHrs * 60 - lunchMinutes) / 60).toFixed(2)
-    );
-
-    const standardHours = dateStr ? getExpectedHoursForDate(dateStr) : 9;
-
-    const overtime = Math.max(
-      0,
-      parseFloat((totalHours - standardHours).toFixed(2))
-    );
-
-    return { total: totalHours, overtime, lunchDeducted, lunchMinutes };
-  };
+  const calculateHours = (start, end, dateStr, source = appData.data[currentLocationName]) =>
+    logic.legacyHours(start, end, dateStr, source?.weeklyHoursConfig || weeklyHoursConfig, source?.schedule);
 
   const renderDailyReport = () => {
     const date = reportDateInput.value;
@@ -3170,7 +3075,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ? formatHoursHM(r.overtime)
             : "-";
 
-      const observationKey = `${date}_${r.name}`;
+      const observationKey = `${date}_${escapeHTML(r.name)}`;
 
       const currentObservation =
         (attendance[date] &&
@@ -3180,11 +3085,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       tr.innerHTML = `
 
-                <td class=\"px-4 py-2 font-medium\">${r.name}</td>
+                <td class=\"px-4 py-2 font-medium\">${escapeHTML(r.name)}</td>
 
-                <td class=\"px-4 py-2 text-slate-400\">${r.dni}</td>
+                <td class=\"px-4 py-2 text-slate-400\">${escapeHTML(r.dni)}</td>
 
-                <td class=\"px-4 py-2 text-slate-400\">${r.position}</td>
+                <td class=\"px-4 py-2 text-slate-400\">${escapeHTML(r.position)}</td>
 
                 <td class=\"px-4 py-2\">${r.checkIn}</td>
 
@@ -3210,9 +3115,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                            placeholder=\"Observación...\" 
 
-                           value=\"${currentObservation}\" 
+                           value=\"${escapeHTML(currentObservation)}\"
 
-                           data-observation-for=\"${r.name}\" 
+                           data-observation-for=\"${escapeHTML(r.name)}\"
 
                            data-date=\"${date}\">
 
@@ -3220,9 +3125,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <td class=\"px-4 py-2 text-center\">${r.present
           ? '<div class="flex gap-1 justify-center"><button class="w-6 h-6 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded transition-colors" data-action="edit-attendance" data-name="' +
-          r.name +
+          escapeHTML(r.name) +
           '" title="Editar">✏️</button><button class="w-6 h-6 bg-red-600 hover:bg-red-700 text-white text-xs rounded transition-colors" data-action="delete-attendance" data-name="' +
-          r.name +
+          escapeHTML(r.name) +
           '" title="Quitar">🗑️</button></div>'
           : ""
         }</td>
@@ -3269,7 +3174,7 @@ document.addEventListener("DOMContentLoaded", () => {
         topic || ""
       )
         .replace(/\\\"/g, "&quot;")
-        .replace(/'/g, "&#39;")}\">${topic || "-"}${duration}</span></div>
+        .replace(/'/g, "&#39;")}\">${escapeHTML(topic || "-")}${duration}</span></div>
 
         `;
 
@@ -3402,7 +3307,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const sixDays = weekDates.slice(0, 6);
 
-    const cutoffDate = baseDate; // Limitar cálculos hasta la fecha seleccionada
+    const cutoffDate = baseDate < logic.today() ? baseDate : logic.today(); // Limitar cálculos hasta la fecha seleccionada
 
     // Totales por empleado para computar extras y sumatoria de extras diarias
 
@@ -3426,12 +3331,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const presentNamesSet = new Set(validAttendance.map((r) => r.name));
 
       const dayPresent = validAttendance.filter((r) =>
-        activeSet.has(r.name)
+        activeSet.has(r.name) && isCompleteAttendanceRecord(r)
       ).length;
 
       totalPresent += dayPresent;
 
-      totalAbsent += Math.max(0, activeEmps.length - dayPresent);
+      if (getExpectedHoursForDate(date) > 0) totalAbsent += Math.max(0, activeEmps.length - dayPresent);
 
       validAttendance.forEach((record) => {
         const { total, overtime } = calculateHours(
@@ -3452,7 +3357,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       activeEmps.forEach((employee) => {
-        if (!presentNamesSet.has(employee.name)) {
+        if (getExpectedHoursForDate(date) > 0 && !presentNamesSet.has(employee.name)) {
           if (!absentEmployees[employee.name])
             absentEmployees[employee.name] = [];
 
@@ -3471,7 +3376,8 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     weeklyTotals.forEach((sum, name) => {
-      const weeklyExtra = Math.max(0, parseFloat((sum - 50).toFixed(2)));
+      const expectedWeek = sixDays.filter(date => date <= cutoffDate).reduce((total, date) => total + getExpectedHoursForDate(date), 0);
+      const weeklyExtra = Math.max(0, sum - expectedWeek);
 
       const dailyExtra = parseFloat(
         (dailyOvertimeTotals.get(name) || 0).toFixed(2)
@@ -3514,50 +3420,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Función para calcular hora de salida por defecto según horas esperadas del día
 
-  const getDefaultCheckOutTime = (dateStr, checkInTime = "08:00") => {
-    const expectedHours = getExpectedHoursForDate(dateStr);
-
-    if (expectedHours === 0) return "08:00"; // Día sin trabajo
-
-    // Validar que checkInTime sea válido
-    if (!checkInTime || checkInTime.trim() === "") {
-      checkInTime = "08:00";
-    }
-
-    // Parsear hora de entrada
-    const [inHour, inMin] = checkInTime.split(":").map(Number);
-
-    // Validar que los valores sean números válidos
-    if (isNaN(inHour) || isNaN(inMin)) {
-      return "08:00";
-    }
-
-    const inMinutes = inHour * 60 + inMin;
-
-    // Determinar si corresponde sumar la hora de almuerzo (solo días largos)
-    let includeLunch = expectedHours >= 6;
-
-    if (dateStr) {
-      const day = new Date(`${dateStr}T00:00:00`).getDay();
-      if (day === 6) includeLunch = false; // No sumar almuerzo en sábado
-    }
-
-    const lunchMinutes = includeLunch ? 60 : 0;
-
-    // Calcular hora de salida: entrada + horas esperadas + pausa de almuerzo
-    const outMinutes = inMinutes + expectedHours * 60 + lunchMinutes;
-
-    const outHour = Math.floor(outMinutes / 60);
-
-    const outMin = outMinutes % 60;
-
-    return `${String(outHour).padStart(2, "0")}:${String(outMin).padStart(
-      2,
-      "0"
-    )}`;
-  };
-
-  // Actualizar horas esperadas cuando cambia la fecha
+  const getDefaultCheckOutTime = (dateStr, checkInTime = "08:00") =>
+    logic.legacyCheckOut(dateStr, checkInTime, weeklyHoursConfig, appData.data[currentLocationName]?.schedule);
 
   const updateExpectedHours = () => {
     if (reportDateInput.value) {
@@ -3622,7 +3486,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const n = raw === "" ? null : Number(raw);
 
-      durationVal = n === null || (!Number.isNaN(n) && n >= 0) ? n : null;
+      if (n !== null && (!Number.isInteger(n) || n < 0 || n > 480)) { alert("La charla debe durar entre 0 y 480 minutos enteros."); return; }
+      durationVal = n;
     }
 
     dailyTopics[date] = { topic, duration: durationVal };
@@ -3680,7 +3545,7 @@ document.addEventListener("DOMContentLoaded", () => {
         activeSet.has(r.name)
       ).length;
 
-      const dayAbsent = Math.max(0, activeEmps.length - dayPresent);
+      const dayAbsent = getExpectedHoursForDate(date) > 0 ? Math.max(0, activeEmps.length - dayPresent) : 0;
 
       let dayCompliant = 0,
         dayNonCompliant = 0;
@@ -3689,7 +3554,7 @@ document.addEventListener("DOMContentLoaded", () => {
         dayOvertime = 0;
 
       dayList.forEach((rec) => {
-        if (!activeSet.has(rec.name)) return;
+        if (!activeSet.has(rec.name) || !isCompleteAttendanceRecord(rec)) return;
 
         const { total, overtime } = calculateHours(
           rec.checkIn,
@@ -3817,6 +3682,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     sixDays.forEach((date) => {
+      if (date > cutoffDate) return;
       const dayList = attendance[date] || [];
 
       dayList.forEach((rec) => {
@@ -3920,7 +3786,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (cutoffDate && date > cutoffDate) return;
 
       const presentNames = new Set(
-        (attendance[date] || []).map((r) => r.name)
+        (attendance[date] || []).filter(isCompleteAttendanceRecord).map((r) => r.name)
       );
 
       const activeSet = new Set(
@@ -3930,7 +3796,7 @@ document.addEventListener("DOMContentLoaded", () => {
       employeeStats.forEach((stats) => {
         // Solo contar ausencia si el empleado estaba activo ese día
 
-        if (!activeSet.has(stats.name)) return;
+        if (!activeSet.has(stats.name) || getExpectedHoursForDate(date) === 0) return;
 
         if (!presentNames.has(stats.name)) {
           stats.daysAbsent++;
@@ -3983,9 +3849,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             <div class="bg-red-900/20 p-2 rounded text-sm">
 
-                <div class="font-medium text-red-300">${emp.name}</div>
+                <div class="font-medium text-red-300">${escapeHTML(emp.name)}</div>
 
-                <div class="text-xs text-slate-400">${emp.position}</div>
+                <div class="text-xs text-slate-400">${escapeHTML(emp.position)}</div>
 
                 <div class="text-xs text-red-400">${emp.daysAbsent
               } días: ${emp.absentDays.join(", ")}</div>
@@ -4004,6 +3870,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const employeesWithDebt = [];
 
     sixDays.forEach((date, idx) => {
+      if (date > cutoffDate) return;
       const dayList = attendance[date] || [];
 
       const presentMap = new Map(dayList.map((r) => [r.name, r]));
@@ -4011,7 +3878,7 @@ document.addEventListener("DOMContentLoaded", () => {
       employees.forEach((emp) => {
         const rec = presentMap.get(emp.name);
 
-        if (rec) {
+        if (isCompleteAttendanceRecord(rec)) {
           const { total, overtime } = calculateHours(
             rec.checkIn,
             rec.checkOut,
@@ -4074,9 +3941,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             <div class="bg-green-900/20 p-2 rounded text-sm">
 
-                <div class="font-medium text-green-300">${emp.name}</div>
+                <div class="font-medium text-green-300">${escapeHTML(emp.name)}</div>
 
-                <div class="text-xs text-slate-400">${emp.position}</div>
+                <div class="text-xs text-slate-400">${escapeHTML(emp.position)}</div>
 
                 <div class="text-xs text-green-400">${emp.day}: ${formatHoursHM(
               emp.hours
@@ -4100,9 +3967,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             <div class="bg-amber-900/20 p-2 rounded text-sm">
 
-                <div class="font-medium text-amber-300">${emp.name}</div>
+                <div class="font-medium text-amber-300">${escapeHTML(emp.name)}</div>
 
-                <div class="text-xs text-slate-400">${emp.position}</div>
+                <div class="text-xs text-slate-400">${escapeHTML(emp.position)}</div>
 
                 <div class="text-xs text-amber-400">${emp.day}: ${formatHoursHM(
               emp.hours
@@ -4122,41 +3989,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Helper: Check for attendance issues
   // Helper: Check for attendance issues
-  const checkAttendanceIssues = (record, dateStr) => {
-    if (!record || !record.checkIn || !record.checkOut) return null;
-
-    let expectedHours = 9; // Default M-F (including lunch)
-    if (dateStr) {
-      const [y, m, d] = dateStr.split('-');
-      const date = new Date(y, m - 1, d);
-      if (date.getDay() === 6) expectedHours = 5; // Saturday
-    }
-
-    const issues = [];
-
-    // Check Late Entry
-    const [hIn, mIn] = record.checkIn.split(":").map(Number);
-    const checkInMinutes = hIn * 60 + mIn;
-    const [stdH, stdM] = STANDARD_ENTRY_TIME.split(":").map(Number);
-    const standardMinutes = stdH * 60 + stdM;
-
-    // Tolerance check
-    if (checkInMinutes > standardMinutes + TOLERANCE_MINUTES) {
-      issues.push(`Llegada Tarde (${record.checkIn})`);
-    }
-
-    // Check Undertime (Early Exit or less hours)
-    const [hOut, mOut] = record.checkOut.split(":").map(Number);
-    const checkOutMinutes = hOut * 60 + mOut;
-    const workedMin = checkOutMinutes - checkInMinutes;
-
-    // Validation threshold (small buffer)
-    if (workedMin < expectedHours * 60 - 10) {
-      issues.push(`Horas insuficientes (${(workedMin / 60).toFixed(1)}h)`);
-    }
-
-    return issues.length > 0 ? issues : null;
-  };
+  const checkAttendanceIssues = (record, dateStr) =>
+    logic.legacyIssues(record, dateStr, weeklyHoursConfig, appData.data[currentLocationName]?.schedule);
 
   // Logic to open modal
   const openPayrollReviewModal = (employeeName, weekDates) => {
@@ -4181,7 +4015,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Iterate week
     weekDates.split(',').forEach(dateStr => {
       const dayRecord = (appData.data[currentLocationName].attendance[dateStr] || []).find(r => r.name === employeeName);
-      if (!dayRecord || !dayRecord.checkIn || !dayRecord.checkOut) return;
+      if (dateStr > reportDateInput.value || dateStr > logic.today() || !isCompleteAttendanceRecord(dayRecord)) return;
 
       // Use date-aware issue detection
       const issues = checkAttendanceIssues(dayRecord, dateStr);
@@ -4209,30 +4043,34 @@ document.addEventListener("DOMContentLoaded", () => {
       const [hOut, mOut] = dayRecord.checkOut.split(":").map(Number);
       const checkInMinutes = hIn * 60 + mIn;
       const checkOutMinutes = hOut * 60 + mOut;
-      const workedMinutes = checkOutMinutes - checkInMinutes;
+      const workedMinutes = Math.round(calculateHours(dayRecord.checkIn, dayRecord.checkOut, dateStr).total * 60);
 
       // Proportional discount calculation
       // M-F: 8 hours work (480m), Sat: 5 hours work (300m)
-      const expectedMinutes = (isSaturday ? 5 : 8) * 60;
+      const expectedMinutes = Math.round(getExpectedHoursForDate(dateStr) * 60);
+      const recordRate = Number(dayRecord.dailyRate ?? dailyRate);
 
       if (workedMinutes < expectedMinutes) {
         const missingMinutes = expectedMinutes - workedMinutes;
-        suggestedDiscount = (dailyRate * missingMinutes) / expectedMinutes;
+        suggestedDiscount = expectedMinutes ? (recordRate * missingMinutes) / expectedMinutes : 0;
       }
 
       // Lateness penalty
-      const [stdH, stdM] = STANDARD_ENTRY_TIME.split(":").map(Number);
+      const schedule = appData.data[currentLocationName].schedule;
+      const [stdH, stdM] = (schedule?.start || STANDARD_ENTRY_TIME).split(":").map(Number);
       const standardMinutes = stdH * 60 + stdM;
-      if (checkInMinutes > standardMinutes + TOLERANCE_MINUTES) {
-        const lateMinutes = checkInMinutes - standardMinutes - TOLERANCE_MINUTES;
-        suggestedDiscount += (dailyRate * lateMinutes) / expectedMinutes;
+      const tolerance = schedule?.tolerance ?? TOLERANCE_MINUTES;
+      if (dayRecord.checkOut > dayRecord.checkIn && expectedMinutes && checkInMinutes > standardMinutes + tolerance) {
+        const lateMinutes = checkInMinutes - standardMinutes - tolerance;
+        suggestedDiscount = Math.max(suggestedDiscount, (recordRate * lateMinutes) / expectedMinutes);
       }
+      suggestedDiscount = logic.roundMoney(Math.min(recordRate, suggestedDiscount));
 
       const isPending = review.status === 'pending';
       const isApproved = review.status === 'approved';
       const isDiscount = review.status === 'discounted';
 
-      const currentAmount = review.amount || (isDiscount ? suggestedDiscount : 0);
+      const currentAmount = Number(review.amount ?? 0);
 
       div.innerHTML = `
         <!-- Columna 1: Fecha e Info -->
@@ -4261,28 +4099,28 @@ document.addEventListener("DOMContentLoaded", () => {
           <!-- Botones de Estado -->
           <div class="flex gap-2 w-full">
             <label class="flex-1 text-center cursor-pointer py-1.5 rounded text-xs font-bold transition-all border ${isPending ? 'bg-slate-700 border-slate-500 text-white shadow' : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700'}">
-              <input type="radio" name="action_${reviewKey}" value="pending" ${isPending ? 'checked' : ''} class="hidden">
+              <input type="radio" name="action_${escapeHTML(reviewKey)}" value="pending" ${isPending ? 'checked' : ''} class="hidden">
               ⏳ Pendiente
             </label>
             <label class="flex-1 text-center cursor-pointer py-1.5 rounded text-xs font-bold transition-all border ${isApproved ? 'bg-emerald-600 border-emerald-500 text-white shadow' : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700'}">
-              <input type="radio" name="action_${reviewKey}" value="approved" ${isApproved ? 'checked' : ''} class="hidden">
+              <input type="radio" name="action_${escapeHTML(reviewKey)}" value="approved" ${isApproved ? 'checked' : ''} class="hidden">
               ✓ Justificar
             </label>
             <label class="flex-1 text-center cursor-pointer py-1.5 rounded text-xs font-bold transition-all border ${isDiscount ? 'bg-red-600 border-red-500 text-white shadow' : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700'}">
-              <input type="radio" name="action_${reviewKey}" value="discounted" ${isDiscount ? 'checked' : ''} class="hidden">
+              <input type="radio" name="action_${escapeHTML(reviewKey)}" value="discounted" ${isDiscount ? 'checked' : ''} class="hidden">
               $ Descontar
             </label>
           </div>
           
           <!-- Controles de Descuento (Visible solo si Descontar) -->
-          <div id="controls_${reviewKey}" class="${isDiscount ? '' : 'hidden opacity-50 pointer-events-none'} transition-all space-y-2">
+          <div id="controls_${escapeHTML(reviewKey)}" class="${isDiscount ? '' : 'hidden opacity-50 pointer-events-none'} transition-all space-y-2">
              <div class="flex items-center justify-between bg-slate-950/30 p-2 rounded border border-slate-700/30">
                 <span class="text-xs text-slate-400">Monto a descontar:</span>
                 <div class="flex items-center gap-2">
-                   ${suggestedDiscount > 0 ? `<span class="text-[10px] text-cyan-400/80 cursor-pointer hover:text-cyan-300 hover:underline" onclick="document.getElementById('amount_${reviewKey}').value = ${suggestedDiscount.toFixed(2)}">Sugerido: S/ ${suggestedDiscount.toFixed(2)}</span>` : ''}
+                   ${suggestedDiscount > 0 ? `<span class="text-[10px] text-cyan-400/80 cursor-pointer hover:text-cyan-300 hover:underline" data-suggest-discount="${escapeHTML(reviewKey)}" data-amount="${suggestedDiscount.toFixed(2)}">Sugerido: S/ ${suggestedDiscount.toFixed(2)}</span>` : ''}
                    <div class="relative">
                       <span class="absolute left-2 top-1.5 text-slate-500 text-xs">S/</span>
-                      <input type="number" id="amount_${reviewKey}" value="${currentAmount.toFixed(2)}" min="0" step="0.01" 
+                      <input type="number" id="amount_${escapeHTML(reviewKey)}" value="${currentAmount.toFixed(2)}" min="0" step="0.01"
                         class="w-24 pl-6 pr-2 py-1 bg-slate-900 border border-red-500/50 rounded text-right text-sm text-white focus:outline-none focus:border-red-500">
                    </div>
                 </div>
@@ -4290,15 +4128,15 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
 
           <!-- Nota -->
-          <textarea id="note_${reviewKey}" rows="2" placeholder="📝 Agregar nota / justificación..." 
-            class="w-full bg-slate-950/50 border border-slate-700 rounded text-xs p-2 text-slate-300 placeholder-slate-600 focus:outline-none focus:border-cyan-500 transition-colors resize-none">${review.note || ''}</textarea>
+          <textarea id="note_${escapeHTML(reviewKey)}" rows="2" placeholder="📝 Agregar nota / justificación..."
+            class="w-full bg-slate-950/50 border border-slate-700 rounded text-xs p-2 text-slate-300 placeholder-slate-600 focus:outline-none focus:border-cyan-500 transition-colors resize-none">${escapeHTML(review.note || '')}</textarea>
         </div>
       `;
 
       // Listeners
-      const radios = div.querySelectorAll(`input[name="action_${reviewKey}"]`);
-      const inputsDiv = div.querySelector(`#controls_${reviewKey}`);
-      const amountInput = div.querySelector(`#amount_${reviewKey}`);
+      const radios = Array.from(div.querySelectorAll('input[type=radio]')).filter(el => el.name === 'action_' + reviewKey);
+      const inputsDiv = Array.from(div.querySelectorAll('[id]')).find(el => el.id === 'controls_' + reviewKey);
+      const amountInput = Array.from(div.querySelectorAll('[id]')).find(el => el.id === 'amount_' + reviewKey);
       const labels = div.querySelectorAll('label');
 
       radios.forEach(r => {
@@ -4347,22 +4185,33 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.classList.remove('hidden');
 
     // Save handler
-    save.onclick = () => {
+    save.onclick = async () => {
       const inputs = list.querySelectorAll('input[type="radio"]:checked');
       if (!appData.data[currentLocationName].payrollReviews) appData.data[currentLocationName].payrollReviews = {};
 
-      inputs.forEach(input => {
+      const changes = {};
+      for (const input of inputs) {
         const key = input.name.replace('action_', '');
         const amountEl = document.getElementById(`amount_${key}`);
         const noteEl = document.getElementById(`note_${key}`);
-        appData.data[currentLocationName].payrollReviews[key] = {
+        const amount = input.value === 'discounted' ? Number(amountEl.value) : 0;
+        const record = attendance[key.slice(0, 10)]?.find(item => item.name === employeeName);
+        const rate = Number(record?.dailyRate ?? dailyRate);
+        if (!Number.isFinite(amount) || amount < 0 || amount > rate) {
+          alert("El descuento no puede superar la tarifa registrada del día."); return;
+        }
+        const note = noteEl?.value.trim() || '';
+        if (input.value !== 'pending' && note.length < 3) { alert("Escribe el motivo de cada revisión."); return; }
+        changes[key] = {
           status: input.value,
-          amount: input.value === 'discounted' ? parseFloat(amountEl.value) : 0,
-          note: noteEl ? noteEl.value : ''
+          amount: logic.roundMoney(amount),
+          note, dailyRate: rate
         };
-      });
+      }
 
-      saveData();
+      const previous = structuredClone(appData.data[currentLocationName].payrollReviews);
+      Object.assign(appData.data[currentLocationName].payrollReviews, changes);
+      if (!await saveData()) { appData.data[currentLocationName].payrollReviews = previous; return; }
       renderPayroll();
       modal.classList.add('hidden');
     };
@@ -4370,6 +4219,12 @@ document.addEventListener("DOMContentLoaded", () => {
     close.onclick = () => modal.classList.add('hidden');
   };
   window.openPayrollReviewModal = openPayrollReviewModal;
+  document.addEventListener('click', event => {
+    const review = event.target.closest('[data-payroll-review]');
+    if (review) openPayrollReviewModal(review.dataset.payrollReview, review.dataset.weekDates);
+    const suggestion = event.target.closest('[data-suggest-discount]');
+    if (suggestion) document.getElementById('amount_' + suggestion.dataset.suggestDiscount).value = suggestion.dataset.amount;
+  });
 
   // --- PLANILLA DE PAGO ---
   const renderPayroll = () => {
@@ -4396,17 +4251,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (payrollWeekLabel) payrollWeekLabel.textContent = weekStr;
 
-    // Check Active Employees
-    // Check Active Employees or Employees with Attendance in this week
-    const activeEmps = employees.filter((emp) => {
-      if (isActiveOnDate(emp, baseDate)) return true;
-      return weekDates.some((dateStr) => {
-        const dayRecords = attendance[dateStr] || [];
-        return dayRecords.some(
-          (r) => r.name === emp.name && r.checkIn && r.checkOut
-        );
-      });
-    });
+    const payrollReport = logic.legacyPayroll(appData, currentLocationName, baseDate);
+    const activeEmps = payrollReport.payroll.map(row => row.employee);
 
     let globalTotalDays = 0;
     let globalTotalMonto = 0;
@@ -4417,45 +4263,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const rows = activeEmps.map((emp, idx) => {
       const tarifa = parseFloat(emp.tarifaDiaria) || 0;
-      let daysWorked = 0;
-      let hasIssues = false;
-      let hasPendingIssues = false;
-      let totalDiscount = 0;
-
-      const dayCells = weekDates.map(dateStr => {
-        const dayRecords = attendance[dateStr] || [];
-        const record = dayRecords.find(r => r.name === emp.name && r.checkIn && r.checkOut);
-
-        let cellContent = '<span class="text-red-400">✗</span>';
-        let bgClass = "";
-
-        if (record) {
-          daysWorked++;
+      const calculated = payrollReport.payroll.find(row => row.employee.id === emp.id);
+      const daysWorked = calculated.daysWorked;
+      const totalDiscount = calculated.discount;
+      let hasIssues = false, hasPendingIssues = false;
+      const dayCells = calculated.entries.map(entry => {
+        let cellContent = '<span class="text-slate-500">-</span>';
+        if (entry.status === 'absent') cellContent = '<span class="text-red-400">✗</span>';
+        if (entry.status === 'present') {
           cellContent = '<span class="text-green-400">✓</span>';
-
-          // Check issues
-          const issues = checkAttendanceIssues(record, dateStr);
+          const issues = checkAttendanceIssues(entry.record, entry.date);
           if (issues) {
             hasIssues = true;
-            const review = currentReviews[`${dateStr}_${emp.name}`];
-
-            if (!review || review.status === 'pending') {
-              hasPendingIssues = true;
-              cellContent = '<span class="text-amber-400 font-bold cursor-help" title="Incidencia pendiente">!</span>';
-            } else if (review.status === 'discounted') {
-              totalDiscount += review.amount || 0;
-              cellContent = '<span class="text-red-400 font-bold decoration-dotted underline" title="Descuento aplicado">!</span>';
-            } else {
-              // Approved
-              cellContent = '<span class="text-blue-400 font-bold" title="Justificado">✓</span>';
-            }
+            hasPendingIssues ||= entry.review.status === 'pending';
+            cellContent = entry.review.status === 'approved'
+              ? '<span class="text-blue-400 font-bold" title="Justificado">✓</span>'
+              : '<span class="' + (entry.review.status === 'pending' ? 'text-amber-400' : 'text-red-400') + ' font-bold" title="Incidencia">!</span>';
           }
         }
-        return `<td class="px-2 py-2 text-center text-xs border-l border-slate-700/50 ${bgClass}">${cellContent}</td>`;
+        return '<td class="px-2 py-2 text-center text-xs border-l border-slate-700/50">' + cellContent + '</td>';
       }).join('');
-
-      let monto = (daysWorked * tarifa) - totalDiscount;
-      if (monto < 0) monto = 0;
+      const monto = calculated.net;
 
       globalTotalDays += daysWorked;
       globalTotalMonto += monto;
@@ -4476,7 +4304,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Collect notes from reviews for tooltip
       let notesText = "";
       weekDates.forEach(dateStr => {
-        const review = currentReviews[`${dateStr}_${emp.name}`];
+        const review = currentReviews[`${dateStr}_${escapeHTML(emp.name)}`];
         if (review && review.note) {
           const [y, m, d] = dateStr.split('-');
           const date = new Date(y, m - 1, d);
@@ -4486,12 +4314,12 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (hasPendingIssues) {
-        alertIcon = `<button class="ml-2 text-amber-400 hover:text-amber-300 animate-pulse" onclick="openPayrollReviewModal('${emp.name}', '${weekDatesStr}')" title="Revisar incidencias pendientes${notesText ? '\n\nNotas:\n' + notesText : ''}">
+        alertIcon = `<button class="ml-2 text-amber-400 hover:text-amber-300 animate-pulse" data-payroll-review="${escapeHTML(emp.name)}" data-week-dates="${weekDatesStr}" title="Revisar incidencias pendientes${notesText ? '&#10;&#10;Notas:&#10;' + escapeHTML(notesText) : ''}">
           <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
         </button>`;
       } else if (hasIssues && !hasPendingIssues) {
         // Reviewed (Green/Blue check or Red exclamation if discounted)
-        alertIcon = `<button class="ml-2 text-blue-400 hover:text-blue-300" onclick="openPayrollReviewModal('${emp.name}', '${weekDatesStr}')" title="Incidencias revisadas${notesText ? '\n\nNotas:\n' + notesText : ''}">
+        alertIcon = `<button class="ml-2 text-blue-400 hover:text-blue-300" data-payroll-review="${escapeHTML(emp.name)}" data-week-dates="${weekDatesStr}" title="Incidencias revisadas${notesText ? '&#10;&#10;Notas:&#10;' + escapeHTML(notesText) : ''}">
           <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         </button>`;
       }
@@ -4500,12 +4328,12 @@ document.addEventListener("DOMContentLoaded", () => {
         <tr class="border-b border-slate-700/50 hover:bg-slate-800/30 transition-colors">
           <td class="px-3 py-2 text-slate-400 text-xs">${idx + 1}</td>
           <td class="px-3 py-2 font-medium text-white text-sm flex items-center">
-            ${emp.name}
+            ${escapeHTML(emp.name)}
             ${alertIcon}
           </td>
-          <td class="px-3 py-2 text-slate-400 text-xs">${emp.dni || '-'}</td>
-          <td class="px-3 py-2 text-slate-400 text-xs hidden md:table-cell">${emp.procedencia || '-'}</td>
-          <td class="px-3 py-2 text-slate-400 text-xs hidden md:table-cell">${emp.position || '-'}</td>
+          <td class="px-3 py-2 text-slate-400 text-xs">${escapeHTML(emp.dni || '-')}</td>
+          <td class="px-3 py-2 text-slate-400 text-xs hidden md:table-cell">${escapeHTML(emp.procedencia || '-')}</td>
+          <td class="px-3 py-2 text-slate-400 text-xs hidden md:table-cell">${escapeHTML(emp.position || '-')}</td>
           <td class="px-3 py-2 text-center text-cyan-400 text-xs">S/ ${tarifa.toFixed(2)}</td>
           ${dayCells}
           <td class="px-3 py-2 text-center font-semibold text-cyan-400">${daysWorked}</td>
@@ -4513,9 +4341,9 @@ document.addEventListener("DOMContentLoaded", () => {
             S/ ${monto.toFixed(2)}
             ${totalDiscount > 0 ? `<div class="text-[10px] text-red-400 font-normal">-${totalDiscount.toFixed(2)}</div>` : ''}
           </td>
-          <td class="px-3 py-2 ${modalidadClass} text-xs">${emp.modalidadPago || '-'}</td>
-          <td class="px-3 py-2 text-slate-400 text-xs hidden lg:table-cell">${emp.banco || '-'}</td>
-          <td class="px-3 py-2 text-slate-500 text-[10px] hidden lg:table-cell">${emp.numeroCuenta || '-'}</td>
+          <td class="px-3 py-2 ${modalidadClass} text-xs">${escapeHTML(emp.modalidadPago || '-')}</td>
+          <td class="px-3 py-2 text-slate-400 text-xs hidden lg:table-cell">${escapeHTML(emp.banco || '-')}</td>
+          <td class="px-3 py-2 text-slate-500 text-[10px] hidden lg:table-cell">${escapeHTML(emp.numeroCuenta || '-')}</td>
         </tr>
       `;
     });
@@ -4534,88 +4362,23 @@ document.addEventListener("DOMContentLoaded", () => {
   // Export Payroll to Excel
   const exportPayrollToExcel = () => {
     const baseDate = reportDateInput.value;
-    if (!baseDate) {
-      alert("Selecciona una fecha para exportar la planilla.");
-      return;
+    if (!baseDate) { alert("Selecciona una fecha."); return; }
+    const report = logic.legacyPayroll(appData, currentLocationName, baseDate);
+    const headers = ["Empleado", "DNI / CE", "Cargo", "Tarifa actual", ...report.dates, "Días trabajados", "Bruto", "Descuento", "Neto", "Pago", "Banco", "Cuenta", "CCI"];
+    const rows = report.payroll.map(row => [row.employee.name, row.employee.dni, row.employee.position, row.employee.tarifaDiaria,
+      ...row.entries.map(entry => entry.mark === '—' ? '-' : entry.mark), row.daysWorked, row.gross, row.discount, row.net,
+      row.employee.modalidadPago, row.employee.banco, row.employee.numeroCuenta, row.employee.cci]);
+    rows.push(["TOTAL", "", "", "", ...report.dates.map(() => ""), report.totals.daysWorked, report.totals.gross, report.totals.discount, report.totals.net]);
+    const sheet = XLSX.utils.aoa_to_sheet([["PLANILLA DE PAGO · IMPORTES REFERENCIALES"], [currentLocationName, "Corte: " + report.cutoff], [], headers, ...rows]);
+    sheet["!cols"] = headers.map((_, index) => ({ wch: index === 0 ? 32 : 18 }));
+    sheet["!autofilter"] = { ref: "A4:" + XLSX.utils.encode_cell({ r: rows.length + 2, c: headers.length - 1 }) };
+    for (let row = 4; row < rows.length + 4; row++) for (const col of [3, 12, 13, 14]) {
+      const cell = sheet[XLSX.utils.encode_cell({ r: row, c: col })];
+      if (cell && cell.t === "n") cell.z = '"S/ " #,##0.00';
     }
-
-    const weekDates = getWeekDatesFromDate(baseDate).slice(0, 7);
-    const { year: isoYear, week: isoWeek } = getISOWeekInfo(new Date(baseDate + "T00:00:00"));
-    const weekStr = `${isoYear}-W${isoWeek.toString().padStart(2, "0")}`;
-    // Check Active Employees or Employees with Attendance in this week
-    const activeEmps = employees.filter((emp) => {
-      if (isActiveOnDate(emp, baseDate)) return true;
-      return weekDates.some((dateStr) => {
-        const dayRecords = attendance[dateStr] || [];
-        return dayRecords.some(
-          (r) => r.name === emp.name && r.checkIn && r.checkOut
-        );
-      });
-    });
-
-    if (activeEmps.length === 0) {
-      alert("No hay empleados activos para exportar.");
-      return;
-    }
-
-    // Build CSV content
-    let csv = "PLANILLA DE PAGO\n";
-    csv += `Semana: ${weekStr}\n`;
-    csv += `Ubicación: ${currentLocationName}\n\n`;
-    csv += "Item,Nombres y Apellidos,DNI,Procedencia,Cargo,Tarifa Diaria,Lunes,Martes,Miércoles,Jueves,Viernes,Sábado,Domingo,Total Días,Monto Total,Modalidad,Banco,Cuenta\n";
-
-    let grandTotal = 0;
-    activeEmps.forEach((emp, idx) => {
-      const tarifa = emp.tarifaDiaria || 0;
-      let daysWorked = 0;
-
-      const dayMarks = weekDates.map(dateStr => {
-        const dayRecords = attendance[dateStr] || [];
-        const present = dayRecords.some(r => r.name === emp.name && r.checkIn && r.checkOut);
-        if (present) daysWorked++;
-        return present ? "X" : "";
-      });
-
-      const monto = daysWorked * tarifa;
-      grandTotal += monto;
-
-      const row = [
-        idx + 1,
-        `"${emp.name}"`,
-        emp.dni || "",
-        `"${emp.procedencia || ""}"`,
-        `"${emp.position || ""}"`,
-        tarifa.toFixed(2),
-        ...dayMarks,
-        daysWorked,
-        monto.toFixed(2),
-        `"${emp.modalidadPago || ""}"`,
-        `"${emp.banco || ""}"`,
-        `"${emp.numeroCuenta || ""}"`
-      ];
-      csv += row.join(",") + "\n";
-    });
-
-    csv += `\n,,,,,TOTAL GENERAL,,,,,,${activeEmps.reduce((sum, emp) => {
-      let d = 0;
-      weekDates.forEach(dateStr => {
-        const dayRecords = attendance[dateStr] || [];
-        if (dayRecords.some(r => r.name === emp.name && r.checkIn && r.checkOut)) d++;
-      });
-      return sum + d;
-    }, 0)},${grandTotal.toFixed(2)},,,\n`;
-
-    // Download CSV
-    const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = `Planilla_${currentLocationName.replace(/[^a-zA-Z0-9]/g, "_")}_${weekStr}.csv`;
-    document.body.appendChild(link);
-    link.click();
-    setTimeout(() => {
-      URL.revokeObjectURL(link.href);
-      link.remove();
-    }, 100);
+    const book = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(book, sheet, "Planilla");
+    XLSX.writeFile(book, "Planilla_" + baseDate + ".xlsx");
   };
 
   // Export Payroll to PDF
@@ -4629,15 +4392,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const weekDates = getWeekDatesFromDate(baseDate).slice(0, 7);
     const { year: isoYear, week: isoWeek } = getISOWeekInfo(new Date(baseDate + "T00:00:00"));
     const weekStr = `${isoYear}-W${isoWeek.toString().padStart(2, "0")}`;
-    const activeEmps = employees.filter((emp) => {
-      if (isActiveOnDate(emp, baseDate)) return true;
-      return weekDates.some((dateStr) => {
-        const dayRecords = attendance[dateStr] || [];
-        return dayRecords.some(
-          (r) => r.name === emp.name && r.checkIn && r.checkOut
-        );
-      });
-    });
+    const payrollReport = logic.legacyPayroll(appData, currentLocationName, baseDate);
+    const activeEmps = payrollReport.payroll.map(row => row.employee);
 
     if (activeEmps.length === 0) {
       alert("No hay empleados activos para exportar.");
@@ -4668,7 +4424,7 @@ document.addEventListener("DOMContentLoaded", () => {
     doc.setFontSize(12);
     doc.setTextColor(100);
     doc.text(`Ubicación: ${currentLocationName}`, centerX, 58, { align: "center" });
-    doc.text(`Semana: ${weekStr}`, centerX, 74, { align: "center" });
+    doc.text(`Semana: ${weekStr} | Corte: ${payrollReport.cutoff}`, centerX, 74, { align: "center" });
 
     // Table
     const head = [["#", "Empleado", "DNI", "Procedencia", "Cargo", "Tarifa", "L", "M", "X", "J", "V", "S", "D", "Días", "Monto", "Modalidad", "Banco"]];
@@ -4678,16 +4434,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     activeEmps.forEach((emp, idx) => {
       const tarifa = emp.tarifaDiaria || 0;
-      let daysWorked = 0;
-
-      const dayMarks = weekDates.map(dateStr => {
-        const dayRecords = attendance[dateStr] || [];
-        const present = dayRecords.some(r => r.name === emp.name && r.checkIn && r.checkOut);
-        if (present) daysWorked++;
-        return present ? "✓" : "-";
-      });
-
-      const monto = daysWorked * tarifa;
+      const calculated = payrollReport.payroll.find(row => row.employee.id === emp.id);
+      const daysWorked = calculated.daysWorked;
+      const dayMarks = calculated.entries.map(entry => entry.mark === '—' ? '-' : entry.mark);
+      const monto = calculated.net;
       grandTotal += monto;
       grandDays += daysWorked;
 
@@ -4697,7 +4447,7 @@ document.addEventListener("DOMContentLoaded", () => {
         emp.dni || "-",
         emp.procedencia || "-",
         emp.position || "-",
-        `S/${tarifa.toFixed(0)}`,
+        `S/${tarifa.toFixed(2)}`,
         ...dayMarks,
         daysWorked,
         `S/${monto.toFixed(2)}`,
@@ -4738,11 +4488,11 @@ document.addEventListener("DOMContentLoaded", () => {
       alternateRowStyles: { fillColor: [240, 253, 244] },
       margin: { left: 30, right: 30 },
       columnStyles: {
-        0: { cellWidth: 25 },
-        1: { cellWidth: 110 },
+        0: { cellWidth: 20 },
+        1: { cellWidth: 100 },
         2: { cellWidth: 55 },
-        3: { cellWidth: 70 },
-        4: { cellWidth: 70 },
+        3: { cellWidth: 55 },
+        4: { cellWidth: 55 },
         5: { cellWidth: 45 },
         6: { cellWidth: 22 },
         7: { cellWidth: 22 },
@@ -4753,8 +4503,8 @@ document.addEventListener("DOMContentLoaded", () => {
         12: { cellWidth: 22 },  // Domingo
         13: { cellWidth: 35 },  // Días
         14: { cellWidth: 60 },  // Monto
-        15: { cellWidth: 70 },  // Modalidad
-        16: { cellWidth: 50 },  // Banco
+        15: { cellWidth: 55 },  // Modalidad
+        16: { cellWidth: 45 },  // Banco
       }
     });
 
@@ -4834,6 +4584,10 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   reportDateInput.addEventListener("change", () => {
+    if (!logic.validDate(reportDateInput.value) || reportDateInput.value > logic.today()) {
+      reportDateInput.value = logic.today(); updateDateVisual();
+      alert("Selecciona una fecha válida hasta hoy.");
+    }
     updateExpectedHours();
 
     renderDailyReport();
@@ -4889,9 +4643,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (config) {
       const hours = config
         .split(",")
-        .map((h) => parseFloat(h.trim()) || 0);
+        .map((h) => Number(h.trim()));
 
-      if (hours.length === 7) {
+      if (hours.length === 7 && hours.every(value => Number.isFinite(value) && value >= 0 && value <= 16 && Number.isInteger(value * 60))) {
         weeklyHoursConfig[1] = hours[0]; // Lunes
 
         weeklyHoursConfig[2] = hours[1]; // Martes
@@ -4932,6 +4686,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const dd = String(d.getDate()).padStart(2, "0");
 
+    if (!Number.isFinite(d.getTime()) || toYMD(d) > logic.today()) return;
     reportDateInput.value = `${yyyy}-${mm}-${dd}`;
     updateDateVisual(); // sync visual input
   };
@@ -4958,6 +4713,9 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCustomDropdown();
 
     loadDailyTopic();
+    renderPayroll();
+    updateWeekRangeBadge();
+    loadWeeklyNotes();
   };
 
   if (prevDayBtn)
@@ -5140,7 +4898,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const activeEmps = date ? employeesForDate(date) : employees;
 
-    const empByName = new Map(activeEmps.map((e) => [e.name, e]));
+    const empByName = new Map(employees.map((e) => [e.name, e]));
 
     const names = Array.from(
       new Set([
@@ -5170,7 +4928,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const record = dailyAttendance.find((r) => r.name === name);
 
-      if (record) {
+      if (isCompleteAttendanceRecord(record)) {
         const { total, overtime } = calculateHours(
           record.checkIn,
           record.checkOut,
@@ -5205,7 +4963,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         "Hrs. Extra": "-",
         Estado: "Ausente",
-        Observaciones: "",
+        Observaciones: record?.observation || "",
         Tema: topic,
         "Duración (min)": duration,
       };
@@ -5297,7 +5055,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return `${d}/${m}/${y}`;
     };
 
-    const rangeText = `Del ${_toDMY(_wd[0])} al ${_toDMY(_wd[5])}`;
+    const rangeText = `Del ${_toDMY(_wd[0])} al ${_toDMY(baseDate)}`;
 
     doc.text(rangeText, centerX, 96, { align: "center" });
 
@@ -5326,7 +5084,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (addr) {
         const addrLines = doc.splitTextToSize(
-          `Dirección: ${addr}`,
+          `Dirección: ${escapeHTML(addr)}`,
           wrapWidth
         );
 
@@ -5405,7 +5163,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ? appData.data[currentLocationName].weeklyNotesLog || {}
         : {};
 
-    const events = eventsMap[weekStr] || [];
+    const events = (eventsMap[weekStr] || []).filter(event => event.date <= baseDate);
 
     let afterCoverY = coverYStart;
 
@@ -5459,7 +5217,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Solo Lunes (index 0) a Sábado (index 5)
 
-    const sixDays = weekDates.slice(0, 6);
+    const sixDays = weekDates.slice(0, 6).filter(date => date <= baseDate && date <= logic.today());
 
     const dayNames = [
       "Lunes",
@@ -5506,14 +5264,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const activeSet = new Set(activeEmps.map((e) => e.name));
 
-      const empByName = new Map(activeEmps.map((e) => [e.name, e]));
+      const empByName = new Map(employees.map((e) => [e.name, e]));
 
       // Primero, agregar presentes para activos
 
       activeEmps.forEach((employee) => {
         const rec = presentMap.get(employee.name);
 
-        if (rec) {
+        if (isCompleteAttendanceRecord(rec)) {
           present++;
 
           const { total, overtime, lunchDeducted } = calculateHours(
@@ -5575,7 +5333,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Además, si existen registros presentes de nombres que ya no están en la lista activa (p.ej. eliminados), incluirlos como presentes
 
       presentMap.forEach((rec, name) => {
-        if (activeSet.has(name)) return; // ya incluido arriba
+        if (activeSet.has(name) || !isCompleteAttendanceRecord(rec)) return; // ya incluido arriba
 
         // Buscar datos básicos si existen en el listado global histórico
 
@@ -5935,10 +5693,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       item.innerHTML = `
 
-                <div class="text-sm">${loc}</div>
+                <div class="text-sm">${escapeHTML(loc)}</div>
 
                 ${addr
-          ? `<div class="text-xs text-slate-400">${addr}</div>`
+          ? `<div class="text-xs text-slate-400">${escapeHTML(addr)}</div>`
           : ""
         }
 
@@ -5981,10 +5739,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="flex-1">
 
                     <div class="text-sm font-medium ${isEnabled ? "text-slate-200" : "text-slate-500"
-        }">${loc}</div>
+        }">${escapeHTML(loc)}</div>
 
                     ${addr
-          ? `<div class="text-xs text-slate-400">${addr}</div>`
+          ? `<div class="text-xs text-slate-400">${escapeHTML(addr)}</div>`
           : ""
         }
 
@@ -5993,7 +5751,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <label class="relative inline-flex items-center cursor-pointer">
 
                     <input type="checkbox" ${isEnabled ? "checked" : ""
-        } class="sr-only peer" data-location="${loc}">
+        } class="sr-only peer" data-location="${escapeHTML(loc)}">
 
                     <div class="w-11 h-6 bg-slate-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-cyan-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-600"></div>
 
@@ -6174,6 +5932,9 @@ document.addEventListener("DOMContentLoaded", () => {
       loadedData = await storage.load();
     } catch (error) {
       console.error("No se pudo cargar datos almacenados:", error);
+      alert("No se pudieron cargar los datos. No se reemplazaron los registros guardados. " + error.message);
+      enableRecovery();
+      return;
     }
 
     if (!loadedData) {
@@ -6193,28 +5954,17 @@ document.addEventListener("DOMContentLoaded", () => {
             JSON.parse(oldConfig);
         }
 
-        try {
-          localStorage.removeItem("employees");
-          localStorage.removeItem("attendance");
-          localStorage.removeItem("weeklyHoursConfig");
-        } catch { }
-
         loadedData = draft;
         needsPersist = true;
       }
     }
 
     if (loadedData) {
-      loadedData = migrateImportedData(loadedData);
+      try { loadedData = migrateImportedData(loadedData); needsPersist = true; }
+      catch (error) { alert("El respaldo guardado necesita revisión. No se modificó. " + error.message); enableRecovery(loadedData); return; }
     }
 
     const demo = window.DemoData || null;
-
-    // En el despliegue público (o con ?demo=reset) se refresca la demo cuando
-    // cambia la versión del dataset, aunque ya hubiera datos guardados.
-    if (loadedData && demo && demo.needsReseed()) {
-      loadedData = null;
-    }
 
     if (!loadedData || !validateAppData(loadedData)) {
       const mode = demo ? demo.decideInitialData() : "ask";
@@ -6246,7 +5996,7 @@ document.addEventListener("DOMContentLoaded", () => {
       needsPersist = true;
     }
 
-    appData = loadedData;
+    appData = logic.normalizeLegacy(loadedData);
 
     if (needsPersist) {
       await saveData();
@@ -6382,7 +6132,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!appData.locations) appData.locations = [];
 
-        if (appData.locations.includes(name)) {
+        if (["__proto__", "constructor", "prototype"].includes(name.toLowerCase()) || name.length < 2 || name.length > 80) { alert("Nombre de sede no válido."); return; }
+        if (appData.locations.some(item => item.toLowerCase() === name.toLowerCase())) {
           alert("Ya existe una losa con ese nombre.");
           return;
         }
@@ -6446,6 +6197,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     checkInTimeInput.value = "08:00";
 
+    reportDateInput.max = logic.today();
     // Calcular hora de salida según el día de la semana configurado
 
     const defaultCheckOut = getDefaultCheckOutTime(
@@ -6496,6 +6248,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  initialize();
+  initialize().catch(error => { console.error(error); alert("No se pudo iniciar el sistema: " + error.message); });
 });
 

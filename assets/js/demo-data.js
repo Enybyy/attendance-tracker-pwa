@@ -288,8 +288,11 @@
     const inMin = hIn * 60 + mIn;
     const outMin = hOut * 60 + mOut;
 
-    if (inMin > STANDARD_ENTRY_MIN + TOLERANCE_MIN) return true;
-    if (outMin - inMin < expected * 60 - 10) return true;
+    const overnight = outMin < inMin;
+    const pause = !overnight && !isSat ? Math.max(0, Math.min(outMin, 13 * 60) - Math.max(inMin, 12 * 60)) : 0;
+    const workedMinutes = outMin - inMin + (overnight ? 1440 : 0) - pause;
+    if (!overnight && inMin > STANDARD_ENTRY_MIN + TOLERANCE_MIN) return true;
+    if (workedMinutes < expected * 60 - 10) return true;
     return false;
   };
 
@@ -516,6 +519,7 @@
     const dates = buildWorkDates(today);
 
     const appData = {
+      mode: "demo",
       locations: SEDES.map((s) => s.name),
       currentLocationIndex: 0,
       data: {},
@@ -607,13 +611,7 @@
   };
 
   /** ¿Re-sembrar aunque ya existan datos? (versión nueva o ?demo=reset) */
-  const needsReseed = () => {
-    if (readParam() === "reset") return true;
-    if (lsGet(LS_OPTOUT_KEY) === "1") return false;
-
-    const seeded = lsGet(LS_SEED_KEY);
-    return !!seeded && seeded !== DEMO_SEED_VERSION;
-  };
+  const needsReseed = () => false;
 
   const markSeeded = () => {
     lsSet(LS_SEED_KEY, DEMO_SEED_VERSION);
@@ -625,11 +623,19 @@
   const wipeAndReload = async (optOut) => {
     try {
       window.appData = null;
-      if (window.storage && typeof window.storage.clear === "function") {
-        await window.storage.clear();
+      if (window.storage) {
+        const sample = build();
+        if (optOut) {
+          for (const location of Object.values(sample.data)) {
+            location.employees = []; location.attendance = {}; location.dailyTopics = {};
+            location.weeklyNotes = {}; location.weeklyNotesLog = {}; location.payrollReviews = {};
+          }
+          sample.mode = 'work';
+        } else sample.mode = 'demo';
+        await window.storage.save(sample);
       }
     } catch (e) {
-      console.warn("No se pudo limpiar el almacenamiento:", e);
+      alert("No se pudo reemplazar la demo. Se conservaron los datos. " + e.message); return;
     }
 
     lsDel(LS_SEED_KEY);

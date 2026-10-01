@@ -20,13 +20,16 @@ class StorageManager {
     this.dbPromise = null;
     this.directoryHandle = null;
     this.fileHandle = null;
+    this.queue = Promise.resolve();
+    this.persistenceType = "empty";
+    this.lastFileWarning = "";
   }
 
   async init() {
     if (!this.dbPromise) {
       this.dbPromise = this.openDatabase();
     }
-    await this.dbPromise;
+    try { await this.dbPromise; } catch { this.db = null; }
     if (!this.directoryHandle) {
       await this.restoreDirectoryHandle();
     }
@@ -45,8 +48,10 @@ class StorageManager {
 
       request.onsuccess = () => {
         this.db = request.result;
+        this.db.onversionchange = () => { this.db.close(); this.db = null; };
         resolve(this.db);
       };
+      request.onblocked = () => reject(new Error("Cierra las otras pestañas para actualizar el almacenamiento."));
 
       request.onerror = () => {
         console.error("Error al abrir IndexedDB:", request.error);
@@ -69,7 +74,9 @@ class StorageManager {
         const store = this.getObjectStore("readwrite");
         const request = store.put(value, key);
 
-        request.onsuccess = () => resolve(true);
+        store.transaction.oncomplete = () => resolve(true);
+        store.transaction.onerror = () => reject(store.transaction.error);
+        store.transaction.onabort = () => reject(store.transaction.error || new Error("Guardado interrumpido."));
         request.onerror = () => reject(request.error);
       } catch (error) {
         reject(error);
@@ -91,50 +98,53 @@ class StorageManager {
     });
   }
 
-  async save(data) {
-    await this.init();
-    try {
-      await this.putValue(this.APP_DATA_KEY, data);
-    } catch (error) {
-      console.error("Error guardando en IndexedDB:", error);
-    }
-
-    if (this.directoryHandle) {
+  save(data) {
+    const snapshot = structuredClone(data);
+    const action = async () => {
+      await this.init();
       try {
-        await this.writeFile(data);
-      } catch (error) {
-        console.error("No se pudo escribir el archivo de datos:", error);
+        await this.putValue(this.APP_DATA_KEY, snapshot);
+        this.persistenceType = "indexeddb";
+        try { localStorage.removeItem("attendanceLegacyFallback"); } catch {}
+      } catch {
+        const previous = localStorage.getItem(this.APP_DATA_KEY);
+        localStorage.setItem(this.APP_DATA_KEY, JSON.stringify(snapshot));
+        try { localStorage.setItem("attendanceLegacyFallback", "1"); }
+        catch (error) {
+          if (previous === null) localStorage.removeItem(this.APP_DATA_KEY);
+          else localStorage.setItem(this.APP_DATA_KEY, previous);
+          throw error;
+        }
+        this.persistenceType = "localstorage";
       }
-    } else {
-      try {
-        localStorage.setItem(this.APP_DATA_KEY, JSON.stringify(data));
-      } catch (error) {
-        console.warn("No se pudo usar localStorage:", error);
+      this.lastFileWarning = "";
+      if (this.directoryHandle) {
+        try { await this.writeFile(snapshot); }
+        catch { this.lastFileWarning = "Guardado en el navegador; no se pudo actualizar la carpeta vinculada."; }
       }
-    }
+      return { type: this.persistenceType, fileWarning: this.lastFileWarning };
+    };
+    const current = this.queue.then(action, action);
+    this.queue = current.catch(() => {});
+    return current;
   }
 
   async load() {
     await this.init();
 
-    if (this.directoryHandle) {
-      const fileData = await this.readFile();
-      if (fileData) return fileData;
-    }
-
-    try {
-      const dbData = await this.getValue(this.APP_DATA_KEY);
-      if (dbData) return dbData;
-    } catch (error) {
-      console.error("No se pudo leer IndexedDB:", error);
-    }
-
-    try {
+    if (localStorage.getItem("attendanceLegacyFallback")) {
       const raw = localStorage.getItem(this.APP_DATA_KEY);
-      if (raw) return JSON.parse(raw);
-    } catch (error) {
-      console.warn("No se pudo leer localStorage:", error);
+      if (raw) { this.persistenceType = "localstorage"; return JSON.parse(raw); }
     }
+
+    if (this.db) {
+      const dbData = await this.getValue(this.APP_DATA_KEY);
+      if (dbData) { this.persistenceType = "indexeddb"; return dbData; }
+    }
+
+    const raw = localStorage.getItem(this.APP_DATA_KEY);
+    if (raw) { this.persistenceType = "localstorage"; return JSON.parse(raw); }
+    if (this.directoryHandle) return this.readFile();
 
     return null;
   }
@@ -164,7 +174,7 @@ class StorageManager {
       const handle = await this.getValue(this.HANDLE_KEY);
       if (!handle) return;
 
-      const hasPermission = await this.verifyPermission(handle, false);
+      const hasPermission = await handle.queryPermission({ mode: "readwrite" }) === "granted";
       if (!hasPermission) return;
 
       this.directoryHandle = handle;
@@ -192,9 +202,13 @@ class StorageManager {
       throw new Error("Se requieren permisos de lectura y escritura.");
     }
 
+    try {
+      await dirHandle.getFileHandle(this.FILE_NAME);
+      if (!confirm("Esta carpeta ya contiene appData.json. ¿Reemplazarlo con los datos actuales? Importa primero el archivo si necesitas conservarlo.")) return false;
+    } catch (error) { if (error.name !== "NotFoundError") throw error; }
     this.directoryHandle = dirHandle;
     await this.ensureFileHandle(true);
-    await this.putValue(this.HANDLE_KEY, dirHandle);
+    if (this.db) await this.putValue(this.HANDLE_KEY, dirHandle);
 
     return true;
   }
@@ -238,8 +252,8 @@ class StorageManager {
       if (!text) return null;
       return JSON.parse(text);
     } catch (error) {
-      console.warn("No se pudo leer el archivo de datos:", error);
-      return null;
+      if (error.name === "NotFoundError") return null;
+      throw error;
     }
   }
 
@@ -260,6 +274,8 @@ class StorageManager {
 
   async getStatus() {
     await this.init();
+    if (this.lastFileWarning) return { type: this.persistenceType, warning: this.lastFileWarning };
+    if (this.persistenceType === "localstorage") return { type: "localstorage" };
 
     if (this.directoryHandle) {
       return {

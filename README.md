@@ -1,6 +1,6 @@
 # 📋 Attendance Tracker PWA
 
-> **Multi-site workforce attendance management system** built for the construction & civil works industry — zero dependencies, fully offline-capable, installable as a native app.
+> **Multi-site workforce attendance management system** built for the construction & civil works industry, with local persistence and an installable PWA.
 
 **[🚀 Live Demo](https://enybyy.github.io/attendance-tracker-pwa)**
 
@@ -35,12 +35,12 @@ Built to replace paper-based attendance registers used on active construction pr
 
 ### Reports & Export
 - **PDF export** — daily attendance report with full table (name, DNI, position, hours, overtime, status, observations)
-- **Excel export** — weekly attendance data in spreadsheet format via SheetJS
+- **Excel export** — daily attendance and weekly payroll in actual XLSX format via SheetJS
 - **JSON backup/restore** — full data export and import for portability and disaster recovery
 - **Visual charts** — weekly bar chart of present vs. absent employees (Chart.js)
 
 ### PWA / Offline
-- **Service Worker** — full offline support via cache-first strategy
+- **Service Worker** — caches the application and report libraries after the first online preparation
 - **Installable** — add to home screen on Android/iOS as a standalone app
 - **Local persistence** — data stored in IndexedDB (via custom abstraction) or a user-linked filesystem folder via the File System Access API
 - **No backend required** — 100% client-side, zero server costs
@@ -96,28 +96,47 @@ attendance-tracker-pwa/
 
 ## 🚀 Getting Started
 
-### Option 1 — Open directly (no setup)
+### Option 1 — Serve locally with Node.js
 ```bash
 # Clone the repository
 git clone https://github.com/Enybyy/attendance-tracker-pwa.git
 
-# Open in browser
-open index.html
+# Start the local server
+cd attendance-tracker-pwa
+npm start
 ```
-No server needed — works by opening the file directly.
+Then open `http://127.0.0.1:4173`. Serve the files through HTTP or HTTPS; opening `index.html` as a local file does not support the calculation modules or Service Worker.
 
 ### Option 2 — Serve locally (recommended for Service Worker)
 ```bash
 # Using Python
 python -m http.server 8080
 
-# Or using Node.js
-npx serve .
 ```
 Then open `http://localhost:8080`.
 
 ### Demo mode
 The app loads a realistic seeded dataset automatically on first launch (3 construction sites, 34 workers, ~7 weeks of attendance history). To start with an empty system, append `?demo=off` to the URL.
+
+Saved records are never automatically replaced when the sample dataset changes. Use the existing **Reiniciar demo**, **Empezar vacío**, or **Cargar datos de muestra** controls for an explicit reset.
+
+### Calculation and data rules
+
+The original interface is retained. Net worked time deducts only the actual overlap with the 12:00–13:00 pause on weekdays. Saturday and overnight shifts are exempt from that pause. The configured daily hours determine overtime and incomplete-shift incidents.
+
+Payroll uses completed attendance up to the selected date, capped at today. Records keep their original daily rate. Reviewed discounts are capped at that recorded rate and are included in both XLSX and PDF exports. Absences and observation-only records do not count as worked days. Overtime is reported without automatic extra pay; this is an operational payroll summary.
+
+Backups are validated before replacement. Single-site legacy backups are imported once. Employee identities and observations are preserved during migration, and personnel with historical attendance must be deactivated instead of deleted. The original name-based interface requires distinct employee names within each site.
+
+### Verification
+
+```bash
+npm ci
+npm test
+npm run test:e2e
+```
+
+Browser tests use installed Chrome by default. For bundled Chromium, run `npx playwright install chromium` and set `BROWSER_CHANNEL=chromium`. Tests cover payroll/XLSX consistency, record editing, historical rates, bulk registration, invalid backups, local fallback persistence, explicit resets and offline reload/export.
 
 ---
 
@@ -209,5 +228,5 @@ MIT — free to use, modify, and distribute.
 ---
 
 <div align="center">
-  <sub>Built with vanilla JavaScript · No frameworks · No build tools · Fully offline</sub>
+  <sub>Built with vanilla JavaScript · No frameworks · Local data storage</sub>
 </div>

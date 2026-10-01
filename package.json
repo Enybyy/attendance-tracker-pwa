@@ -1,0 +1,16 @@
+{
+  "name": "attendance-tracker-pwa",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Control de asistencia y planilla referencial por sede",
+  "scripts": {
+    "start": "node scripts/server.mjs",
+    "test": "node --test tests/*.test.js",
+    "test:e2e": "node tests/browser.mjs"
+  },
+  "devDependencies": {
+    "exceljs": "4.4.0",
+    "playwright": "1.58.2"
+  }
+}
